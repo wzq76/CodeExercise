@@ -1,3 +1,4 @@
 D:/CLionProjects/CodeExercise/cmake-build-debug/CMakeFiles/CodeExercise.dir
-D:/CLionProjects/CodeExercise/cmake-build-debug/CMakeFiles/edit_cache.dir
 D:/CLionProjects/CodeExercise/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+D:/CLionProjects/CodeExercise/cmake-build-debug/CMakeFiles/ch02_test.dir
+D:/CLionProjects/CodeExercise/cmake-build-debug/CMakeFiles/edit_cache.dir

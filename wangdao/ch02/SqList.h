@@ -16,13 +16,14 @@ using namespace std;
 typedef int ElemType;
 typedef struct SqList{
     ElemType* data;
-    int Length;
+    int length;
 }SqList;
 /*
  * 线性表基本操作
  */
 bool InitList(SqList &L);
 int Length(SqList l);
+int LocateElem(SqList L, ElemType e);
 ElemType GetElem(SqList l,int i);
 bool ListInsert(SqList &l,int i,ElemType e );
 bool ListDelete(SqList &l,int i,ElemType &e);
