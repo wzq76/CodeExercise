@@ -2,7 +2,7 @@
 // Created by wzq12 on 2022-06-09.
 //
 
-#include "ch02/ch02exercise.cpp"
+#include "ch02exercise.cpp"
 #include <vector>
 #include <iostream>
 using namespace std;

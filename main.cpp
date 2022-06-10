@@ -1,6 +1,6 @@
 #include <iostream>
-
+//int g_x=99;
+#include "search/binarySearch.cpp"
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+
 }

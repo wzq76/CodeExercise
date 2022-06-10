@@ -94,11 +94,11 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 build cmake_object_order_depends_target_ch02_test: phony || CMakeFiles/ch02_test.dir
 
-build CMakeFiles/ch02_test.dir/wangdao/ch02_test.cpp.obj: CXX_COMPILER__ch02_test_Debug D$:/CLionProjects/CodeExercise/wangdao/ch02_test.cpp || cmake_object_order_depends_target_ch02_test
-  DEP_FILE = CMakeFiles\ch02_test.dir\wangdao\ch02_test.cpp.obj.d
+build CMakeFiles/ch02_test.dir/wangdao/ch02/ch02_test.cpp.obj: CXX_COMPILER__ch02_test_Debug D$:/CLionProjects/CodeExercise/wangdao/ch02/ch02_test.cpp || cmake_object_order_depends_target_ch02_test
+  DEP_FILE = CMakeFiles\ch02_test.dir\wangdao\ch02\ch02_test.cpp.obj.d
   FLAGS = -g -std=gnu++11
   OBJECT_DIR = CMakeFiles\ch02_test.dir
-  OBJECT_FILE_DIR = CMakeFiles\ch02_test.dir\wangdao
+  OBJECT_FILE_DIR = CMakeFiles\ch02_test.dir\wangdao\ch02
 
 
 # =============================================================================
@@ -108,7 +108,7 @@ build CMakeFiles/ch02_test.dir/wangdao/ch02_test.cpp.obj: CXX_COMPILER__ch02_tes
 #############################################
 # Link the executable ch02_test.exe
 
-build ch02_test.exe: CXX_EXECUTABLE_LINKER__ch02_test_Debug CMakeFiles/ch02_test.dir/wangdao/ch02_test.cpp.obj
+build ch02_test.exe: CXX_EXECUTABLE_LINKER__ch02_test_Debug CMakeFiles/ch02_test.dir/wangdao/ch02/ch02_test.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\ch02_test.dir
@@ -117,6 +117,39 @@ build ch02_test.exe: CXX_EXECUTABLE_LINKER__ch02_test_Debug CMakeFiles/ch02_test
   TARGET_FILE = ch02_test.exe
   TARGET_IMPLIB = libch02_test.dll.a
   TARGET_PDB = ch02_test.exe.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target search_test
+
+
+#############################################
+# Order-only phony target for search_test
+
+build cmake_object_order_depends_target_search_test: phony || CMakeFiles/search_test.dir
+
+build CMakeFiles/search_test.dir/search/search_test.cpp.obj: CXX_COMPILER__search_test_Debug D$:/CLionProjects/CodeExercise/search/search_test.cpp || cmake_object_order_depends_target_search_test
+  DEP_FILE = CMakeFiles\search_test.dir\search\search_test.cpp.obj.d
+  FLAGS = -g -std=gnu++11
+  OBJECT_DIR = CMakeFiles\search_test.dir
+  OBJECT_FILE_DIR = CMakeFiles\search_test.dir\search
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target search_test
+
+
+#############################################
+# Link the executable search_test.exe
+
+build search_test.exe: CXX_EXECUTABLE_LINKER__search_test_Debug CMakeFiles/search_test.dir/search/search_test.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\search_test.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = search_test.exe
+  TARGET_IMPLIB = libsearch_test.dll.a
+  TARGET_PDB = search_test.exe.dbg
 
 
 #############################################
@@ -136,6 +169,8 @@ build CodeExercise: phony CodeExercise.exe
 
 build ch02_test: phony ch02_test.exe
 
+build search_test: phony search_test.exe
+
 # =============================================================================
 # Folder targets.
 
@@ -144,7 +179,7 @@ build ch02_test: phony ch02_test.exe
 #############################################
 # Folder: D:/CLionProjects/CodeExercise/cmake-build-debug
 
-build all: phony CodeExercise.exe ch02_test.exe
+build all: phony CodeExercise.exe ch02_test.exe search_test.exe
 
 # =============================================================================
 # Built-in targets
