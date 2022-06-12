@@ -28,6 +28,8 @@ int search(vector<int> &nums, int target) {
  * @param target
  * @return 返回右下标加1是插入位置
  */
+
+
 int searchInsert(vector<int>& nums, int target) {
     int left = 0;
     int right = nums.size()-1;
@@ -41,8 +43,35 @@ int searchInsert(vector<int>& nums, int target) {
     }
     return right+1;
 }
-
-
+/**
+ * 26
+ * @param nums
+ * @return
+ */
+int removeDuplicates(vector<int>& nums) {
+    int slow=0;
+    for (int fast = 1; fast < nums.size(); ++fast) {
+        if (nums[fast] != nums[slow]) {
+            nums[++slow] = nums[fast];
+        }
+    }
+    return slow+1;
+}
+/**
+ * 27
+ * @param nums
+ * @param val
+ * @return
+ */
+int removeElement(vector<int>& nums, int val) {
+    int slow=0;
+    for (int fast = 0; fast < nums.size(); ++fast) {
+        if (nums[fast] != val) {
+            nums[slow++] = nums[fast];
+        }
+    }
+    return slow;
+}
 
 
 
