@@ -23,7 +23,7 @@ int main(){
     InitList(l2);
     init(l1,v1,8);
     init(l2,v2,4);
-    PrintList(l1);
+//    PrintList(l1);
 //    PrintList(l2);
 // 1
 //    Del_Min(l1, n);
@@ -56,16 +56,34 @@ int main(){
 //    for (const auto &item: a) {
 //        cout<<item<<' ';
 //    }
+//9
+//    int a[] = {11 , 13, 15, 17, 19};
+//    int b[] = {2, 4, 6, 8, 20};
+//    cout<<MSearch(a,b,5);
+//    12
+//    int a[] = {0,5,5,3,5,1,5,7 };
+//    cout<<Majority(a,8);
+//13
+//    int a[] = {1,2,3};
+//   cout<< findMissMin(a,3);
 
-    int a[] = {11 , 13, 15, 17, 19};
-    int b[] = {2, 4, 6, 8, 20};
-    cout<<MSearch(a,b,5);
 
 
+/**
+ * 链表
+ */
+    LinkList ll1,ll2,ll3;
+    int c[] = {11 , 13, 13, 17, 19};
+    List_TailInsert(ll1,c,5);
+    PrintLinkList(ll1);
 
-
-
-
-
+//1
+//    Del_X_1(ll1,13);
+//    PrintLinkList(ll1);
+//2
+//    Del_X_2(ll1,13);
+//    PrintLinkList(ll1);
+//3
+     R_Print(ll1);
 
 }
