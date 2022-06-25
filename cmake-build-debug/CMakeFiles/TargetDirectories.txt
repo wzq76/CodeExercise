@@ -1,5 +1,0 @@
-/home/w/CLionProjects/CodeExercise/cmake-build-debug/CMakeFiles/CodeExercise.dir
-/home/w/CLionProjects/CodeExercise/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/w/CLionProjects/CodeExercise/cmake-build-debug/CMakeFiles/ch02_test.dir
-/home/w/CLionProjects/CodeExercise/cmake-build-debug/CMakeFiles/search_test.dir
-/home/w/CLionProjects/CodeExercise/cmake-build-debug/CMakeFiles/edit_cache.dir

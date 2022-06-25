@@ -73,7 +73,7 @@ int main(){
  * 链表
  */
     LinkList ll1,ll2,ll3;
-    int c[] = {11 , 3, 13, 17, 19};
+    int c[] = {1,2,3,4,5};
     List_TailInsert(ll1,c,5);
     PrintLinkList(ll1);
 
@@ -97,5 +97,28 @@ int main(){
 //    RangeDelete(ll1,10,15);
 //    PrintLinkList(ll1);
 //9
-    MinDelete(ll1);
+//    MinDelete(ll1);
+//10
+//    PrintLinkList(DisCreat_1(ll1));
+//    PrintLinkList(ll1);
+
+//    11
+    PrintLinkList(DisCreate_2(ll1));
+    PrintLinkList(ll1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

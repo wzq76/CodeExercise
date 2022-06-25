@@ -336,33 +336,34 @@ LinkList Delere_Min(LinkList &l) {
     free(minp);
     return l;
 }
+
 /**
  * 5. 试编写算法将带头结点的单链表就地逆置，所谓“就地”是指辅助空间复杂度为 0(1)。
  *    将头结点摘下，然后从第一结点开始，依次插入到头结点的后面(头插法建立单链)，
  *    直到最后一个结点为止
  */
 
-   LinkList Reverse_1(LinkList &l){
-       LNode *p = l->next,*q;
-       l->next = NULL;
-        while(p){
-            q = p->next;
-            p->next = l->next;
-            l->next = p;
-            p=q;
-        }
+LinkList Reverse_1(LinkList &l) {
+    LNode *p = l->next, *q;
+    l->next = NULL;
+    while (p) {
+        q = p->next;
+        p->next = l->next;
+        l->next = p;
+        p = q;
+    }
     return l;
-   }
+}
 
 /**
  * 6. 有一个带头结点的单链表 L，设计一个算法使其元素递增有序。
  *    采用直接插入排序算法的思想，先构成只含一个数据结点的有序单链表，然后依次扫描单链表中剩下的结点 *p(直至 p==NULL 为止)，
  *    在有序表中通过比较查找插入 *p 的前驱结点 *pre，然后将 *p 插入到 *pre 之后
  */
-void Sort(LinkList &l){
-    LNode *p = l->next,*q,*pre;
+void Sort(LinkList &l) {
+    LNode *p = l->next, *q, *pre;
     l->next = NULL;
-    while(p){
+    while (p) {
         q = p->next;
         pre = l;
         while (pre->next && pre->next->data <= p->data)
@@ -376,14 +377,14 @@ void Sort(LinkList &l){
  * 7. 设在一个带表头结点的单链表中所有元素结点的数据值无序，试编写一个函数，
  *    删除表中所有介于给定的两个值(作为函数参数给出)之间的元素的元素(若存在) 。
  */
-void RangeDelete(LinkList &l,ElemType min,ElemType max){
-    LNode *pre = l,*p = l->next;
-    while(p){
-        if(min<=p->data && p->data<= max){
+void RangeDelete(LinkList &l, ElemType min, ElemType max) {
+    LNode *pre = l, *p = l->next;
+    while (p) {
+        if (min <= p->data && p->data <= max) {
             pre->next = p->next;
             free(p);
             p = pre->next;
-        }else{
+        } else {
             pre = p;
             p = p->next;
         }
@@ -397,7 +398,6 @@ void RangeDelete(LinkList &l,ElemType min,ElemType max){
  *    当 L2 到达链表 headB 的末尾时，重新定位到链表 headA 的头结点。
  *    这样，当它们相遇时，所指向的结点就是第一个公共结点。
  * 链接：https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/solution/shuang-zhi-zhen-fa-lang-man-xiang-yu-by-ml-zimingm/
-
  */
 
 /**
@@ -405,26 +405,95 @@ void RangeDelete(LinkList &l,ElemType min,ElemType max){
  *    按递增次序输出单链表中各结点的数据元素，并释放结点所占的存储空间(要求: 不允许使用数组作为辅助空间)。
  */
 
-void MinDelete(LinkList &l){
-    while(l->next){
+void MinDelete(LinkList &l) {
+    while (l->next) {
         Delere_Min(l);
     }
     free(l);
 }
 
+/**
+ * 10.将一个带头结点的单链表 A 分解为两个带头结点的单链表 A 和 B，
+ *    使得 A 表中含有原表中序号为奇数的元素，而 B 表中含有原表中序号为偶数的元素，且保持其相对顺序不变。
+ * 算法思想: 设置一个访问序号变量(初值为 0)，每访问一个结点序号自动加1，然后根据序号的奇偶性将结点插入到 A 表或 B 表中。
+ *          重复以上操作直到表尾。
+ */
+
+LinkList DisCreat_1(LinkList &a) {
+    LNode *p = a->next;
+    a->next = NULL;
+
+    LNode *b = (LNode *) malloc(sizeof(LNode));//创建一个B节点
+    b->next = NULL;
+    LNode *pa = a, *pb = b; //两个链表尾指针
+
+    int cnt = 1;
+    while (p) {
+        if (cnt % 2 != 0) {   //奇数
+            pa->next = p;
+            pa = p;
+        } else {
+            pb->next = p;
+            pb = p;
+        }
+        p = p->next;
+        cnt++;
+    }
+    pa->next = NULL;
+    pb->next = NULL;
+    return b;
+}
+
+/**
+ * 11.设 C ={a1,b1,a2,b2,...an,bn} 为线性表，采用带头结点的 hc 单链表存放，设计一个就地算法，将其拆分为两个线性表，
+ *  使得 A = {a1,a2,··· , an,}, B= {bn,bn-1,...,b2,b1}
+ *  算法思想: 采用上题的思路，二者的差别仅在于对 B 表的建立不采用尾插法，
+ *  而是采用头插法。
+ */
+
+LinkList DisCreate_2(LinkList &a){
+    LNode *p = a->next,*q;
+    a->next = NULL;
+
+    LNode *b = (LNode*) malloc(sizeof(LNode));
+    b->next = NULL;
+
+    LNode *pa = a; //尾插法尾指针，尾指针最后要设空
+    int cnt = 1;
+    while (p){
+        q = p->next;    //采用头插法需要设置辅助指针q  p为待分解节点
+        if (cnt % 2 != 0) {
+            pa->next = p;
+            pa = p;
+        }else{
+            p->next = b->next;
+            b->next = p;
+        }
+        p = q;
+        cnt++;
+    }
+    pa->next = NULL;
+    return b;
+}
 
 
+/**
+ * 12.在一个递增有序的线性表中，有数值相同的元素存在。 若存储方式为单链表，设计算法去掉数值相同的元素，使表中不再有重复的元素，
+ *    例如(7, 10, 10, 21, 30, 42, 42, 42, 51, 70) 将变为 (7, 10, 21, 30, 42, 51, 70)。
+ * 算法思想: 由于是有序表，所有相同值域的结点都是相邻的。用 p 扫描递增单链表 L，
+ *          若 *p 结点的值域等于 *p 后继结点的值域，则删除后者，否则 p 移向下一个结点。
+ * 83. 删除排序链表中的重复元素
+ * https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list
+ */
+void Del_Same(LinkList &l){
+    LNode *pre = l->next;
+    if (!pre) {
+        return;
+    }
+    LNode *p=pre->next,*q;
+    while (p){
 
-
-
-
-
-
-
-
-
-
-
-
+    }
+}
 
 
