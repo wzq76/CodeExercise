@@ -12,9 +12,11 @@ using namespace std;
 int main() {
     int indent = 85;
     string str = "12#46##7##3#5##";
-    const char* elems = str.data();    // 构建二叉树
+    const char* elems = str.data();    // 先序遍历 建二叉树线序
     BiTree r;
     Create(r,elems);
-    PreOrder2(r);
-
+//    PreOrder22(r);
+//    test(r);
+//    InOrder22(r);
+    PostOrder22(r);
 }
