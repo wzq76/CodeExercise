@@ -12,6 +12,7 @@ using namespace std;
 typedef struct BiTNode{
     ElemType data;
     BiTNode *lchild,*rchild;
+    BiTNode(int x) : data(x), lchild(NULL), rchild(NULL) {}
 }BiTNode,*BiTree;
 
 void Create(BiTNode &root,char const *&elements);

@@ -321,7 +321,7 @@ LinkList Delere_Min(LinkList &l) {
     if (!l || !l->next) {
         return l;
     }
-    LNode *pre = l, *p = l->next; //yong lai bian li
+    LNode *pre = l, *p = l->next; //p指针遍历整个链表
     LNode *minpre = pre, *minp = p;
     while (p) {
         if (p->data < minp->data) {
@@ -362,14 +362,13 @@ LinkList Reverse_1(LinkList &l) {
  */
 void Sort(LinkList &l) {
     LNode *p = l->next, *q, *pre;
-    l->next = NULL;
+    l->next = NULL;         //将头摘下
     while (p) {
         q = p->next;
         pre = l;
         while (pre->next && pre->next->data <= p->data)
             pre = pre->next;
         p->next = pre->next;
-
     }
 }
 
@@ -451,21 +450,21 @@ LinkList DisCreat_1(LinkList &a) {
  *  而是采用头插法。
  */
 
-LinkList DisCreate_2(LinkList &a){
-    LNode *p = a->next,*q;
+LinkList DisCreate_2(LinkList &a) {
+    LNode *p = a->next, *q;
     a->next = NULL;
 
-    LNode *b = (LNode*) malloc(sizeof(LNode));
+    LNode *b = (LNode *) malloc(sizeof(LNode));
     b->next = NULL;
 
     LNode *pa = a; //尾插法尾指针，尾指针最后要设空
     int cnt = 1;
-    while (p){
+    while (p) {
         q = p->next;    //采用头插法需要设置辅助指针q  p为待分解节点
         if (cnt % 2 != 0) {
             pa->next = p;
             pa = p;
-        }else{
+        } else {
             p->next = b->next;
             b->next = p;
         }
@@ -485,13 +484,13 @@ LinkList DisCreate_2(LinkList &a){
  * 83. 删除排序链表中的重复元素
  * https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list
  */
-void Del_Same(LinkList &l){
+void Del_Same(LinkList &l) {
     LNode *pre = l->next;
     if (!pre) {
         return;
     }
-    LNode *p=pre->next,*q;
-    while (p){
+    LNode *p = pre->next, *q;
+    while (p) {
 
     }
 }

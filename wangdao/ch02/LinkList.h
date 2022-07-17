@@ -5,8 +5,6 @@
 #ifndef CODEEXERCISE_LINKLIST_H
 #define CODEEXERCISE_LINKLIST_H
 
-
-
 #include <iostream>
 
 using namespace std;
