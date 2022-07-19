@@ -84,7 +84,31 @@ vector<vector<int>> levelOrder2(TreeNode *root) {
     order(root,result,depth);
     return result;
 }
+/**
+ * 107 自底向上层序遍历
+ * @param root
+ * @return
+ */
+vector<vector<int>> levelOrderBottom(TreeNode* root) {
+    queue<TreeNode*> que;
+    if (root) que.push(root);
+    vector<vector<int>> result;
 
+    while (!que.empty()){
+        int size = que.size();
+        vector<int> vec;
+        for (int i = 0; i < size; ++i) {
+            TreeNode* node = que.front();
+            vec.push_back(node->val);
+            que.pop();
+            if (node->left) que.push(node->left);
+            if (node->right) que.push(node->right);
+        }
+        result.push_back(vec);
+    }
+    reverse(result.begin(),result.end());
+    return result;
+}
 /**
  * 144 二叉树前序遍历
  * @param root
@@ -125,3 +149,93 @@ vector<int> postorderTraversal(TreeNode *root) {
     reverse(result.begin(),result.end());
     return result;
 }
+/**
+ * 199 二叉树的右视图：判断每层的最后一个节点
+ * @param root
+ * @return
+ */
+
+vector<int> rightSideView(TreeNode *root) {
+    queue<TreeNode *> que;
+    if (root) que.push(root);
+    vector<int> result;
+
+    while (!que.empty()) {
+        int size = que.size();
+        for (int i = 0; i < size; ++i) {
+            TreeNode *node = que.front();
+            que.pop();
+
+            if (i == (size - 1)) result.push_back(node->val);
+            if (node->left) que.push(node->left);
+            if (node->right) que.push(node->right);
+        }
+    }
+    return result;
+}
+/**
+ * 226 反转二叉树
+ * @param root
+ * @return
+ */
+
+ // 递归法
+TreeNode* invertTree(TreeNode* root) {
+    if (root == NULL) return root;
+    swap(root->left,root->right);
+    invertTree(root->left);
+    invertTree(root->right);
+    return root;
+}
+//迭代法 前序遍历或者层序遍历都行
+TreeNode* invertTree2(TreeNode* root) {
+    stack<TreeNode*>st;
+    if (root) st.push(root);
+
+    while (!st.empty()){
+        TreeNode* node = st.top();
+        st.pop();
+        swap(node->left,node->right);
+        if (node->right) st.push(node->right);
+        if(node->left) st.push(node->left);
+    }
+    return root;
+}
+
+/**
+ * 637 二叉树层平均值
+ * @param root
+ * @return
+ */
+vector<double> averageOfLevels(TreeNode* root) {
+    queue<TreeNode*> que;
+    if (root) que.push(root);
+    vector<double> result;
+
+    while(!que.empty()){
+        int size = que.size();
+        double evl=0;
+
+        for (int i = 0; i < size; ++i) {
+            TreeNode* node = que.front();
+            que.pop();
+            evl += node->val;
+            if (i == (size - 1)) {
+                evl /= size;
+                result.push_back(evl);
+            }
+            if (node->left) que.push(node->left);
+            if (node->right) que.push(node->right);
+        }
+    }
+    return result;
+
+}
+
+
+
+
+
+
+
+
