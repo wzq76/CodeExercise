@@ -34,9 +34,7 @@ bool Del_Min(SqList &l, ElemType &value) {
  *         将其与后半部分的对应元素 L.data[L.length-i-1)进行交换。
  */
 void Reverse(SqList &l) {
-    if (l.length == 0) {
-        return;
-    }
+    if (l.length == 0) return;
     ElemType t;
     for (int i = 0; i < l.length / 2; ++i) {
         t = l.data[i];
@@ -50,31 +48,28 @@ void Reverse(SqList &l) {
 * 算法思想: 用 k 记录顺序表 L 中等于 x 的元素个数，边扫描 L 边统计 k，并将不等于 x 的元素前移 k 个位置，最后修改 L 的长度。
 */
 void del_x_2(SqList &l, ElemType x) {
-    if (l.length == 0) {
-        return;
-    }
+    if (l.length == 0) return;
     int n = 0;
     for (int i = 0; i < l.length; ++i) {
         if (l.data[i] == x) {
             n++;
         } else {
-            l.data[i - n] = l.data[i]; // 当前元素前移n
+            l.data[i - n] = l.data[i]; // 当前元素向前覆盖n位
         }
     }
     l.length -= n;
 }
 
 /**
- * 4. 从有序顺序表中删除其值在给定值s与t之间(要求s<t) 的所有元素，如果s或t不合理或顺序表为空，则显示出错信息并退出运行。
+ * 4. 从有序顺序表中删除其值在给定值s与t之间(要求s小于t) 的所有元素，如果s或t不合理或顺序表为空，则显示出错信息并退出运行。
  * 算法思想: 先寻找值大于等于 s 的第一个元素(第一个删除的元素)， 然后寻找值大于 t 的第一个元素(最后一个删除的元素的下一个元素)，
  *          要将这段元素删除，只需直接将后面的元素前移。
  */
 bool Del_s_t(SqList &l, ElemType s, ElemType t) {
-    if (l.length == 0 || s >= t) {
-        return false;
-    }
+    if (l.length == 0 || s >= t) return false;
+
     int i, j;
-    for (i = 0; i < l.length && l.data[i] <= s; ++i);
+    for (i = 0; i < l.length && l.data[i] <= s; ++i); //查找元素
     if (i >= l.length) return false;
     for (j = i; j < l.length && l.data[j] < t; ++j);
     for (; j < l.length; ++j, ++i) {
@@ -85,15 +80,13 @@ bool Del_s_t(SqList &l, ElemType s, ElemType t) {
 }
 
 /**
- * 5. 从顺序表中删除其值在给定值s与t之间(包含s和t,要求s<t) 的所有元素， 如果s或t不合理或顺序表为空，则显示出错信息并退出运行。
+ * 5. 从顺序表中删除其值在给定值s与t之间(包含s和t,要求s小于t) 的所有元素， 如果s或t不合理或顺序表为空，则显示出错信息并退出运行。
  * 算法思想:
  *    从前向后扫描顺序表 L，用 k 记录下元素值在s与t之间元素的个数(初始时 k=0)。
  *    对于当前扫描的元素，若其值不在 s 到 t 之间，则前移 k 个位置; 否则执行 k++。
  */
 bool Del_s_t2(SqList &l, ElemType s, ElemType t) {
-    if (l.length == 0 || s >= t) {
-        return false;
-    }
+    if (l.length == 0 || s >= t) return false;
     int k = 0;
     for (int i = 0; i < l.length; ++i) {
         if (s <= l.data[i] && l.data[i] <= t) {
@@ -128,9 +121,7 @@ bool Delete_Same(SqList &l) {
  * 7. 将两个有序顺序表合并为一个新的有序顺序表，并由函数返回结果顺序表。
  */
 bool Merge(SqList a, SqList b, SqList &c) {
-    if (a.length + b.length > MaxSize) {
-        return false;
-    }
+    if (a.length + b.length > MaxSize) return false;
     int i = 0, j = 0, k = 0;
     while (i < a.length && j < b.length) {
         if (a.data[i] < b.data[j]) {

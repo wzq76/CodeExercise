@@ -201,6 +201,28 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[剑指 Offer II 064]神奇的字典.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/doc/content/[剑指 Offer II 064]神奇的字典.md" />
+              <option name="frontendQuestionId" value="leetcode.cn剑指 Offer II 064" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[剑指 Offer II 064]神奇的字典.cpp" />
+              <option name="titleSlug" value="US1pGT" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[面试题 17.10]主要元素.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/doc/content/[面试题 17.10]主要元素.md" />
+              <option name="frontendQuestionId" value="leetcode.cn面试题 17.10" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[面试题 17.10]主要元素.cpp" />
+              <option name="titleSlug" value="find-majority-element-lcci" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
