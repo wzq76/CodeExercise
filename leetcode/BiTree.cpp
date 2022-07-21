@@ -39,6 +39,31 @@ vector<int> inorderTraversal(TreeNode *root) {
     }
     return result;
 }
+/**
+ * 101 对称二叉树
+ * @param left
+ * @param right
+ * @return
+ */
+ //递归法
+bool compare(TreeNode* left,TreeNode* right){
+    //中止条件：左右有空节点的情况
+    if (left == NULL && right != NULL) return false;
+    else if (left !=NULL && right == NULL) return false;
+    else if (left ==NULL && right ==NULL) return true;
+        //中止条件：左右没有空节点的情况:左右不同值就退出 左右相同值就递归
+    else if (left->val != right->val)return false;
+
+    bool outside = compare(left->left,right->right);
+    bool inside = compare(left->right,right->left);
+    bool isSame = outside&&inside;
+    return isSame;
+}
+bool isSymmetric(TreeNode* root) {
+    if (root == NULL) return true;
+    return compare(root->left,root->right);
+}
+
 
 /**
  * 102 层序遍历

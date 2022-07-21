@@ -5,6 +5,7 @@
 #include "SqList.cpp"
 #include "LinkList.cpp"
 #include <stack>
+#include "vector"
 
 /**
  * 1. 从顺序表中删除具有最小值的元素(假设唯一)并由函数返回被删元素的值。空出的位置由最后一个元素填补，
@@ -156,11 +157,32 @@ void Reverse(ElemType a[], int m, int n) {
     ReverseArray(a, m, m + n - 1);
     ReverseArray(a, 0, m + n - 1);
 }
+
 /**
  * 9. 线性表(a1,a2,a3,···,an)中的元素递增有序且按顺序存储于计算机内。要求设计一算法，完成用最少时间在表中查找数值为 x 的元素，
  *    若找到则将其与后继元素位置相交换，若找不到则将其插入表中并使表中元素仍递增有序。
  * 算法思想: 折半查找
  */
+void SearchExcgIst(vector<int>& a, int n, ElemType x) {
+    int low = 0, high = n - 1, mid = 0;
+    while (low <= high) {
+        mid = (low + high) / 2;
+        if (a[mid] < x) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    if (mid < n - 1 && a[mid] == x) {
+        ElemType t = a[mid];
+        a[mid] = a[mid + 1];
+        a[mid + 1] = t;
+    }
+    if (low > high) { //查找失败
+        for (int i = n - 1; i > high; --i) a[i + 1] = a[i];
+        a[high + 1] = x;
+    }
+}
 
 /**
  * 11.【2011】一个长度为L(L>=1)的升序序列S，处在第「L/2 个位置的数称为 S 的中位数 。

@@ -57,10 +57,17 @@ int main(){
 //        cout<<item<<' ';
 //    }
 //9
+    int a[] = {1,2,3,5,6};
+    vector<int> vec = {1,2,3,5,6};
+    SearchExcgIst(vec,5,4);
+    for (int n: a) {
+        cout<<n<<' ';
+    }
+//11
 //    int a[] = {11 , 13, 15, 17, 19};
 //    int b[] = {2, 4, 6, 8, 20};
 //    cout<<MSearch(a,b,5);
-//    12
+// 12
 //    int a[] = {0,5,5,3,5,1,5,7 };
 //    cout<<Majority(a,8);
 //13
@@ -75,7 +82,7 @@ int main(){
     LinkList ll1,ll2,ll3;
     int c[] = {1,2,3,4,5};
     List_TailInsert(ll1,c,5);
-    PrintLinkList(ll1);
+//    PrintLinkList(ll1);
 
 //1
 //    Del_X_1(ll1,13);
@@ -103,8 +110,8 @@ int main(){
 //    PrintLinkList(ll1);
 
 //    11
-    PrintLinkList(DisCreate_2(ll1));
-    PrintLinkList(ll1);
+//    PrintLinkList(DisCreate_2(ll1));
+//    PrintLinkList(ll1);
 
 
 
