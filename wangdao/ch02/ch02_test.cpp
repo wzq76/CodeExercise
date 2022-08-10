@@ -60,9 +60,9 @@ int main(){
     int a[] = {1,2,3,5,6};
     vector<int> vec = {1,2,3,5,6};
     SearchExcgIst(vec,5,4);
-    for (int n: a) {
-        cout<<n<<' ';
-    }
+//    for (int n: a) {
+//        cout<<n<<' ';
+//    }
 //11
 //    int a[] = {11 , 13, 15, 17, 19};
 //    int b[] = {2, 4, 6, 8, 20};
@@ -115,7 +115,7 @@ int main(){
 
 
 
-
+     Search_k(ll1,3);
 
 
 

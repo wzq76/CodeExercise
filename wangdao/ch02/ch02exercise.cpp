@@ -163,7 +163,7 @@ void Reverse(ElemType a[], int m, int n) {
  *    若找到则将其与后继元素位置相交换，若找不到则将其插入表中并使表中元素仍递增有序。
  * 算法思想: 折半查找
  */
-void SearchExcgIst(vector<int>& a, int n, ElemType x) {
+void SearchExcgIst(vector<int> &a, int n, ElemType x) {
     int low = 0, high = n - 1, mid = 0;
     while (low <= high) {
         mid = (low + high) / 2;
@@ -330,10 +330,9 @@ void R_Print(LinkList l) {
  * 再将 minp 所指结点删除即可 。
  */
 
-LinkList Delere_Min(LinkList &l) {
-    if (!l || !l->next) {
-        return l;
-    }
+LinkList Delete_Min(LinkList &l) {
+    if (!l || !l->next) return l;
+
     LNode *pre = l, *p = l->next; //p指针遍历整个链表
     LNode *minpre = pre, *minp = p;
     while (p) {
@@ -379,9 +378,11 @@ void Sort(LinkList &l) {
     while (p) {
         q = p->next;
         pre = l;
-        while (pre->next && pre->next->data <= p->data)
+        while (pre->next && pre->next->data <= p->data)// 找到第一个比*p大的前一个节点
             pre = pre->next;
         p->next = pre->next;
+        pre->next = p;
+        p = q;
     }
 }
 
@@ -411,6 +412,17 @@ void RangeDelete(LinkList &l, ElemType min, ElemType max) {
  *    这样，当它们相遇时，所指向的结点就是第一个公共结点。
  * 链接：https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/solution/shuang-zhi-zhen-fa-lang-man-xiang-yu-by-ml-zimingm/
  */
+LinkList Search_Lst_Common(LinkList headA, LinkList headB) {
+    LinkList L1 = headA->next;
+    LinkList L2 = headB->next;
+
+    if (!L1 || !L2) return NULL;
+    while (L1 != L2) {
+        L1 = (L1 ? L1->next : L2);
+        L2 = (L2 ? L2->next : L1);
+    }
+    return L1;
+}
 
 /**
  * 9. 给定一个带表头结点的单链表，设 head 为头指针，结点结构为(data,next), data 为整型元素，next 为指针，试写出算法。
@@ -419,7 +431,7 @@ void RangeDelete(LinkList &l, ElemType min, ElemType max) {
 
 void MinDelete(LinkList &l) {
     while (l->next) {
-        Delere_Min(l);
+        Delete_Min(l);
     }
     free(l);
 }
@@ -473,7 +485,7 @@ LinkList DisCreate_2(LinkList &a) {
     LNode *pa = a; //尾插法尾指针，尾指针最后要设空
     int cnt = 1;
     while (p) {
-        q = p->next;    //采用头插法需要设置辅助指针q  p为待分解节点
+        q = p->next;    //采用头插法需要设置辅助指针q防断  p为待分解节点
         if (cnt % 2 != 0) {
             pa->next = p;
             pa = p;
@@ -499,13 +511,321 @@ LinkList DisCreate_2(LinkList &a) {
  */
 void Del_Same(LinkList &l) {
     LNode *pre = l->next;
-    if (!pre) {
-        return;
-    }
+    if (!pre) return;
+
     LNode *p = pre->next, *q;
     while (p) {
-
+        q = p->next;
+        if (pre->data == p->data) {
+            pre->next = q;
+            free(p);
+        } else {
+            pre = p;
+        }
+        p = q;
     }
 }
 
+/**
+ * 13.假设有两个按元素值递增次序排列的线性表，均以单链表形式存储。请编写算法将这两个单链表归并为一个按元素值递减次序排列的单链表，
+ *    并要求利用原来两个单链表的结点存放归并后的单链表。
+ * 算法思想: 两个链表已经按元素值递增次序排序，将其合并时，均从第一个结点起进行比较，将小的结点链入链表中，同时后移工作指针。
+ *          该问题要求结果链表按元素值递减次序排列，故新链表的建立应该采用头插法。比较结束后，可能会有一个链表非空，此时用头插法
+ *          将剩下的结点依次插入新链表中即可。
+ */
+LinkList MergeList(LinkList La, LinkList Lb) {
+    LNode *Lc = (LNode *) malloc(sizeof(LNode));
+    Lc->next = NULL;
 
+    LNode *pa = La->next, *pb = Lb->next, *q; //q防断链指针
+    while (pa && pb) {
+        if (pa->data < pb->data) {
+            q = pa->next;
+            pa->next = Lc->next;
+            Lc->next = pa;
+            pa = q;
+        } else {
+            q = pb->next;
+            pb->next = Lc->next;
+            Lc->next = pb;
+            pb = q;
+        }
+    }
+    if (pa) pb = pa; //统一用pb指针将剩余的插入
+    while (pb) {
+        q = pb->next;
+        pb->next = Lc->next;
+        Lc->next = pb;
+        pb = q;
+    }
+    return Lc;
+}
+
+/**
+ * 14.设A和B是两个单链表(带头结点)，其中元素递增有序。 设计一个算法从A和B中的公共元素产生单链表C，要求不破坏 A、B 的结点。
+ * 算法思想: 表 A、 B 都有序，可从第一个元素起依次比较 A、 B 两表的元素，
+ *          若元素值不等，则值小的指针往后移，
+ *          若元素值相等，则创建一个值等于两结点的元素值的新结点，使用尾插法插入到新的链表中，并将两个原表指针后移一位
+ *          直到其中一个链表遍历到表尾。
+ */
+LinkList Get_Common(LinkList A, LinkList B) {
+    LNode *Lc = (LNode *) malloc(sizeof(LNode *));
+    LNode *pa = A->next, *pb = B->next, *pc = Lc, *node;
+    while (pa && pb) {
+        if (pa->data < pb->data) {
+            pa = pa->next;
+        } else if (pa->data > pb->data) {
+            pb = pb->next;
+        } else {
+            node = (LNode *) malloc(sizeof(LNode));
+            node->data = pa->data;
+            pc->next = node;
+            pa = pa->next;
+            pb = pb->next;
+        }
+    }
+    pc->next = NULL;
+    return Lc;
+}
+
+/**
+ * 15.已知两个链表A和B分别表示两个集合，其元素递增排列。编制函数，
+ * 求A与B的交集并存放于A链表中。
+ */
+
+void UnionAB(LinkList &A, LinkList &B) {
+    LNode *pa = A->next, *pb = B->next, *ra, *q;
+    A->next = NULL;
+    ra = A; //结果链表的尾指针
+    while (pa && pb) {
+        if (pa->data < pb->data) {
+            q = pa;
+            pa = pa->next;
+            free(q);
+        } else if (pa->data < pb->data) {
+            q = pb;
+            pb = pb->next;
+            free(q);
+        } else {
+            ra->next = pa;      //将pa节点接入结果，pb节点释放
+            ra = pa;
+            pa = pa->next;
+
+            q = pb;
+            pb = pb->next;
+            free(pb);
+        }
+    }
+    ra->next = NULL;
+    if (pa) pb = pa;
+    while (pb) {
+        q = pb;
+        pb = pb->next;
+        free(q);
+    }
+    free(B);
+}
+
+/**
+ * 16.两个整数序列 A ={a1,a2,··· , am} 和 B={b1,b2,...,bn} 已经存入两个单链表中,设计一个算法，判断序列 B 是否是序列 A 的连续子序列。
+ * 算法思想:
+ *    从两个链表的第一个结点开始，若对应数据相等，则后移指针;
+ *    若对应数据不等，则 A 链表从上次开始比较结点的后继开始，B链表仍从第一个结点开始比较，
+ *    直到B链表到尾表示匹配成功；A链表到尾而B链表未到尾表示失败。
+ */
+int Pattern(LinkList A, LinkList B) {
+    LNode *prea = A, *pa = A, *pb = B;
+    while (pa && pb) {
+        if (pa->data == pb->data) {
+            pa = pa->next;
+            pb = pb->next;
+        } else {
+            pb = B;
+            prea = prea->next;
+            pa = prea;
+        }
+    }
+    return pb == NULL ? 1 : 0;
+}
+
+/**
+ * 17.设计一个算法用于判断带头结点的循环双链表是否对称。
+ * 算法思想: 让 p 从左向右扫描， q 从右向左扫描，直到它们指向同一结点
+ *          若它们所指结点值相同，则继续进行下去，否则返回 0。若比较全部相等，则返回 1。
+ */
+
+int Symmetry(DLinkList L) {
+    DNode *p = L->next, *r = L->prior;
+    while (p != r && p->next != r) {
+        if (p->data == r->data) {
+            p = p->next;
+            r = r->prior;
+        } else {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+/**
+ * 18.有两个循环单链表，链表头指针分别为 h1 和 h2，
+ * 编写一个函数将链表 h2 链接到链表 h1 之后 要求链接后的链表仍保持循环链表形式。
+ * 算法思想: 先找到两个链表的尾指针，将第一个链表的尾指针与第二个链表的头结点链接起来，再使之成为循环的。
+ */
+LinkList Link(LinkList &h1, LinkList &h2) { // 无头结点
+    LNode *p1 = h1, *p2 = h2;
+    while (p1->next != h1) p1 = p1->next;
+    while (p2->next != h2) p2 = p2->next;
+    p1->next = h2;
+    p2->next = h1;
+    return h1;
+}
+
+/**
+ * 19.设有一个带头结点的循环单链表，其结点值均为正整数。
+ * 设计一个算法，反复找出单链表中结点值最小的结点并输出，然后将该结点从中删除，
+ *    直到单链表空为止，再删除表头结点。
+ */
+void Del_All(LinkList &L) {
+    while (L->next) {
+        Delete_Min(L);
+    }
+    free(L);
+}
+
+/**
+ * 20.设头指针为 L 的带有表头结点的非循环双向链表，其每个结点中除有 pred(前驱指针)、data(数据)和 next(后继指针)域外，
+ *    还有一个访问频度域 freq。在链表被启用前，其值均初始化为零。每当在链表中进行一次 Locate(L,x)运算时，令元素值为 x
+ *    的结点中 freq 域的值增 1，并使此链表中结点保持按访问频度非增(递减)的顺序排列，同时最近访问的结点排在频度相同的结点
+ *    前面，以便使频繁访问的结点总是靠近表头。试编写符合上述要求的 Locate(L,x) 运算的算法，该运算为函数过程，返回找到结
+ *    点的地址，类型为指针型。
+ * 算法思想: 首先在双向链表中查找数据值为 x 的结点，查到后，将结点从链表上摘下，然后再顺着结点的前驱链查找该结点的
+ *          插入位置(频度递减，且排在同频度的第一个，即向前找到第一个比它的频度大的结点，插入位置为该结点之后)，并插入到该位置 。
+ */
+
+
+DLinkList Locate(DLinkList &L, ElemType x) {
+    DNode *p = L->next, *q, *pre = L;
+    while (p && p->data != x)p = p->next; //用p指针查找x节点
+
+    if (!p) return NULL;
+    p->freq += 1;
+
+    if (p->next) { //将p摘下准备插入
+        p->prior->next = p->next;
+        p->next->prior = p->prior;
+    }
+    q = p->prior;
+    while (q != L && q->freq <= p->freq)q = q->prior;
+    //q是头节点或者是第一个频度比他大的节点
+    p->next = q->next;
+    q->next->prior = p;
+    p->prior = q;
+    q->next = p;
+
+    return p;
+}
+
+/**
+ * 21.「2009」已知一个带有表头结点的单链表，结点结构为 |data|link|，假设该链表只给出了头指针 list。
+ *     在不改变链表的前提下，请设计一个尽可能高效的算法，查找链表中倒数第 k 个位直上的结点(k为正整数)。
+ *     若查找成功，算法输出该结点的 data 域的值，并返回1；否则，只返回0。
+ * 算法思想:
+ *     定义两个指针变量 pre 和 p，初始时均指向头结点的下一个结点(链表表的第一个结点)， p 指针沿链表移动;
+ *     当 p 指针移动到第 k 个结点时， pre 指针开始与 p 指针同步移动;
+ *     当 p 指针移动到最后一个结点时， pre 指针所指示结点为倒数第 k个结点。
+ */
+int Search_k(LinkList list, int k) {
+    LNode *pre = list->next, *p = list->next;
+    while (p) {
+        if (k > 0) {
+            k--;
+        } else {
+            pre = pre->next;
+        }
+        p = p->next;
+    }
+    if (k == 0 && pre) {
+        cout << pre->data << endl;
+        return 1;
+    }
+    return 0;
+
+}
+
+/**
+ * 22.【2012】假定采用带头结点的单链表保存单词，当两个单词有相同的后缀时，可共享相同的后缀存储空间，
+ *例如，“loading”和“being”的存储映像如下图所示。设 str1 和 str2 分别指向两个单词所在单链表的头结点，
+ *链表节点结构为 |data|next|，请设计一个时间上尽可能高效的算法，找出由 str1 和 str2 所指向两个链表共同后缀的起始位置。
+ *算法思想: 采用双指针法。
+ *用指针 p1、p2 分别扫描 str1 和 str2，当 p1、p2 指向同一个地址时，即找到共同后缀的起始位置。
+ */
+
+LNode *find_addr(LNode *str1, LNode *str2) {
+    LNode *p1 = str1->next, *p2 = str2->next;
+    if (!p1 || !p2) return NULL;
+    while (p1 != p2) {
+        p1 = p1 ? p1->next : p2;
+        p2 = p2 ? p2->next : p1;
+    }
+    return p1;
+}
+
+/**
+ * 23.【2015】用单链表保存 m 个整数，结点的结构为 [data][link]，且 |data|<=n (n 为正整数)。现要求设计一个时间复杂度尽可能高效的算法，
+ *     对于链表中 data 的绝对值相等的结点，仅保留第一次出现的结点而删除其余绝对值相等的结点。
+ * 算法思想: 用空间换时间。
+ *     使用辅助数组记录链表中已出现的数值，从而只需对链表进行一趟扫描。因为 |data|<=n，故辅助数组 q 的大小为 n+1，各元素的初值均为 0。
+ *     依次扫描链表中的各结点，同时检查 q[|data|] 的值，若为 0 则保留该结点，井令 q[ldatal]=1；否则将该结点从链表中删除。
+ */
+
+void func(LNode *&h, int n) {
+    int tag[n + 1];
+    for (int i = 0; i <= n; ++i)tag[i] = 0;
+    LNode *p = h->next, *pre = h, *q;
+    while(p){
+        ElemType e = p->data>0?p->data:-p->data;
+        if (tag[e] == 0) {
+            tag[e] = 1;
+            pre->next = p;
+            pre=p;
+            p=p->next;
+        }else{
+            q = p;
+            p = p->next;
+            free(q);
+        }
+    }
+    pre->next = NULL;
+}
+
+/**
+ * 24.设计一个算法完成以下功能:判断一个链表是否有环，如果有，找出环的入口点并返回，否则返回 NULL。
+ * 算法思想:
+ *  1. 判断链表中是否有环：
+ *    设置快慢两个指针分别为 fast 和 slow，初始时都指向链表头 head。
+ *    ① 即 slow=slow->next; fast每次走两步，即 fast=fast->ηext->next。
+ *    ② 由于 fast 比 slow 走得快，如果有环，fast 一定会先进入环，而 slow 后进入环。
+ *    ③ 当两个指针都进入环后，经过若干次操作后两个指针定能在环上相遇。即可判断一个链表是否有环。
+ *
+ *  2. 设头结点到环的入口点的距离为 a，环的入口点沿着环的方向到相遇点的距离为 x，环长为 r，相遇时 fast 绕过了 n 圈。
+ *     则 2(a+x)=a+nr+x
+ *        => a=nr-x=(r-x)+(n-1)r，即从头结点到环的入口点的距离等于 n 倍的环长减去环的入口点到相遇点的距离。
+ *     因此可设置两个指针，一个指向head，一个指向相遇点，两个指针同步移动(均为一次走一步)，相遇点即为环的入口点。
+ * https://leetcode-cn.com/problems/linked-list-cycle/
+ * https://leetcode-cn.com/problems/linked-list-cycle-ii/
+ * https://leetcode-cn.com/problems/linked-list-cycle-ii/solution/linked-list-cycle-ii-kuai-man-zhi-zhen-shuang-zhi-/
+ */
+
+
+/**
+ * 25.【2019】设线性表 L = {a1,a2,··· ,an},采用带头结点的单链表保存，请设计一个空间复杂度为 O(1) 且时间上尽可能高效的算法，
+ *     重新排列 L 中的各结点，得到线性表 L2 = {a1,an,a2,an-1,a3,an-2,···}。
+ * 算法思想:
+ *      先将 L后半段原地逆置 [题目要求空间复杂度为 0(1)，不能借助栈]，否则每取最后一个结点都需要遍历一次链表。
+ *       ① 先找出链表L的中间结点，为此设置两个指针p和q，
+ *          指针p每次走一步，指针 q 每次走两步，当指针 q 到达链尾时，指针 p 正好在链表的中间结点
+ *       ② 然后将 L 的后半段结点原地逆置。
+ *       ③ 从单链表前后两段中依次各取一个结点
+ * https://leetcode-cn.com/problems/middle-of-the-linked-list
+ */
