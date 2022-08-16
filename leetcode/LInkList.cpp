@@ -53,6 +53,33 @@ ListNode *swapPairs(ListNode *head) {
         cur = temp;
     }
     return dummyHead->next; //如果返回head，head还是指向1
+}
+/**
+ * 142 环形链表
+ * @param head
+ * @return
+ */
+ListNode *detectCycle(ListNode *head) {
+    ListNode *fast = head;
+    ListNode *slow = head;
+    while(fast && fast->next){
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) {
+            ListNode *index1 = fast;
+            ListNode *index2 = head;
+            while(index1 != index2){
+                index1 = index1->next;
+                index2 = index2->next;
+            }
+            return index2;
+        }
+    }
+    return nullptr;
+}
+
+
+
 /**
  * 203
  * @param head
