@@ -2,8 +2,10 @@
 // Created by wzq12 on 2022-08-16.
 //
 #include <stack>
+#include <vector>
 #include <queue>
 #include <string>
+#include <algorithm>
 using namespace std;
 
 
@@ -29,7 +31,31 @@ bool isValid(string s) {
     }
     return st.empty();
 }
-
+/**
+ * 150. 逆波兰表达式求值
+ * @param tokens
+ * @return
+ */
+int evalRPN(vector<string> &tokens) {
+    stack<int> st;
+    for (int i = 0; i < tokens.size(); ++i) {
+        if (tokens[i] == "+" || tokens[i] == "-" || tokens[i] == "*" || tokens[i] == "/") {
+            int num1 = st.top();
+            st.pop();
+            int num2 = st.top();
+            st.pop();
+            if (tokens[i] == "+") st.push(num2 + num1); //注意num1顺序
+            if (tokens[i] == "-") st.push(num2 - num1);
+            if (tokens[i] == "*") st.push(num2 * num1);
+            if (tokens[i] == "/") st.push(num2 / num1);
+        }else {
+            st.push(stoi(tokens[i]));
+        }
+    }
+    int result = st.top();
+    st.pop();
+    return result;
+}
 
 /**
  * 225 用队列实现栈
@@ -89,4 +115,40 @@ int peek() {
 
 bool empty() {
     return stIn.empty() && stOut.empty();
+}
+
+/**
+ * 1047. 删除字符串中的所有相邻重复项
+ * @param s
+ * @return
+ */
+string removeDuplicates(string s) {
+    stack<char> st;
+    for (char sc :s ) {
+        if (st.empty() || sc!=st.top()) {
+            st.push(sc);
+        } else{
+            st.pop(); // sc 与 st.top()相等的情况消除
+        }
+    }
+    string result="";
+    while(!st.empty()){
+        result += st.top();
+        st.pop();
+    }
+    reverse(result.begin(),result.end());
+    return result;
+}
+//拿string直接当作栈用
+string removeDuplicates1(string S) {
+    string result;
+    for(char s : S) {
+        if(result.empty() || result.back() != s) {
+            result.push_back(s);
+        }
+        else {
+            result.pop_back();
+        }
+    }
+    return result;
 }
