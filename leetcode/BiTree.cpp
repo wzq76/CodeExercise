@@ -4,7 +4,9 @@
 #include <stack>
 #include <algorithm>
 #include <queue>
+
 using namespace std;
+
 struct TreeNode {
     int val;
     TreeNode *left;
@@ -16,6 +18,7 @@ struct TreeNode {
 
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
+
 /**
  * 94 二叉树中序遍历
  * @param root
@@ -24,13 +27,13 @@ struct TreeNode {
 vector<int> inorderTraversal(TreeNode *root) {
     vector<int> result;
     stack<TreeNode *> st;
-    TreeNode* cur = root; //指针的遍历访问节点，栈则用来处理节点上的元素
+    TreeNode *cur = root; //指针的遍历访问节点，栈则用来处理节点上的元素
 
-    while (cur!=NULL || !st.empty()){
-        if (cur!= NULL) {
+    while (cur != NULL || !st.empty()) {
+        if (cur != NULL) {
             st.push(cur);
-            cur = cur->left;
-        } else{
+            cur = cur->left;  //先找最左孩子
+        } else {
             cur = st.top(); //指针回溯栈顶元素
             st.pop();
             result.push_back(cur->val);
@@ -40,28 +43,51 @@ vector<int> inorderTraversal(TreeNode *root) {
     return result;
 }
 /**
+ * 98.验证二叉搜索树
+ */
+vector<int> vec;
+
+void traversal(TreeNode *root) {
+    if (root == NULL) return;
+    traversal(root->left);
+    vec.push_back(root->val);
+    traversal(root->right);
+}
+
+bool isValidBST(TreeNode *root) {
+    vec.clear();
+    traversal(root);
+    for (int i = 1; i <vec.size() ; ++i) {
+        if (vec[i]<=vec[i-1])  return false;
+    }
+    return true;
+}
+
+
+/**
  * 101 对称二叉树
  * @param left
  * @param right
  * @return
  */
- //递归法
-bool compare(TreeNode* left,TreeNode* right){
+//递归法
+bool compare(TreeNode *left, TreeNode *right) {
     //中止条件：左右有空节点的情况
     if (left == NULL && right != NULL) return false;
-    else if (left !=NULL && right == NULL) return false;
-    else if (left ==NULL && right ==NULL) return true;
+    else if (left != NULL && right == NULL) return false;
+    else if (left == NULL && right == NULL) return true;
         //中止条件：左右没有空节点的情况:左右不同值就退出 左右相同值就递归
     else if (left->val != right->val)return false;
 
-    bool outside = compare(left->left,right->right);
-    bool inside = compare(left->right,right->left);
-    bool isSame = outside&&inside;
+    bool outside = compare(left->left, right->right);
+    bool inside = compare(left->right, right->left);
+    bool isSame = outside && inside;
     return isSame;
 }
-bool isSymmetric(TreeNode* root) {
+
+bool isSymmetric(TreeNode *root) {
     if (root == NULL) return true;
-    return compare(root->left,root->right);
+    return compare(root->left, root->right);
 }
 
 
@@ -89,6 +115,7 @@ vector<vector<int>> levelOrder(TreeNode *root) {
     }
     return result;
 }
+
 /**
  * 递归法
  * @param cur
@@ -99,31 +126,32 @@ void order(TreeNode *cur, vector<vector<int>> &result, int depth) {
     if (cur == nullptr) return;
     if (result.size() == depth) result.push_back(vector<int>());
     result[depth].push_back(cur->val);
-    order(cur->left,result,depth+1);
-    order(cur->right,result,depth+1);
+    order(cur->left, result, depth + 1);
+    order(cur->right, result, depth + 1);
 }
 
 vector<vector<int>> levelOrder2(TreeNode *root) {
     vector<vector<int>> result;
     int depth = 0;
-    order(root,result,depth);
+    order(root, result, depth);
     return result;
 }
+
 /**
  * 107 自底向上层序遍历
  * @param root
  * @return
  */
-vector<vector<int>> levelOrderBottom(TreeNode* root) {
-    queue<TreeNode*> que;
+vector<vector<int>> levelOrderBottom(TreeNode *root) {
+    queue<TreeNode *> que;
     if (root) que.push(root);
     vector<vector<int>> result;
 
-    while (!que.empty()){
+    while (!que.empty()) {
         int size = que.size();
         vector<int> vec;
         for (int i = 0; i < size; ++i) {
-            TreeNode* node = que.front();
+            TreeNode *node = que.front();
             vec.push_back(node->val);
             que.pop();
             if (node->left) que.push(node->left);
@@ -131,22 +159,23 @@ vector<vector<int>> levelOrderBottom(TreeNode* root) {
         }
         result.push_back(vec);
     }
-    reverse(result.begin(),result.end());
+    reverse(result.begin(), result.end());
     return result;
 }
+
 /**
  * 144 二叉树前序遍历
  * @param root
  * @return vector
  */
-vector<int> preorderTraversal(TreeNode* root) {
-    stack<TreeNode*> st;
+vector<int> preorderTraversal(TreeNode *root) {
+    stack<TreeNode *> st;
     vector<int> result;
 
     if (root == NULL) return result;
     st.push(root);       //处理顺序和访问顺序一致
-    while (!st.empty()){
-        TreeNode* node = st.top(); //处理栈顶
+    while (!st.empty()) {
+        TreeNode *node = st.top(); //处理栈顶
         st.pop();
         result.push_back(node->val);
         if (node->right) st.push(node->right);
@@ -154,6 +183,7 @@ vector<int> preorderTraversal(TreeNode* root) {
     }
     return result;
 }
+
 /**
  * 二叉树后序遍历
  * @param root
@@ -168,12 +198,13 @@ vector<int> postorderTraversal(TreeNode *root) {
         TreeNode *node = st.top();
         st.pop();
         result.push_back(node->val);
-        if(node->right) st.push(node->right);
+        if (node->right) st.push(node->right);
         if (node->left) st.push(node->left);
     }
-    reverse(result.begin(),result.end());
+    reverse(result.begin(), result.end());
     return result;
 }
+
 /**
  * 199 二叉树的右视图：判断每层的最后一个节点
  * @param root
@@ -204,25 +235,26 @@ vector<int> rightSideView(TreeNode *root) {
  * @return
  */
 
- // 递归法
-TreeNode* invertTree(TreeNode* root) {
+// 递归法
+TreeNode *invertTree(TreeNode *root) {
     if (root == NULL) return root;
-    swap(root->left,root->right);
+    swap(root->left, root->right);
     invertTree(root->left);
     invertTree(root->right);
     return root;
 }
+
 //迭代法 前序遍历或者层序遍历都行
-TreeNode* invertTree2(TreeNode* root) {
-    stack<TreeNode*>st;
+TreeNode *invertTree2(TreeNode *root) {
+    stack<TreeNode *> st;
     if (root) st.push(root);
 
-    while (!st.empty()){
-        TreeNode* node = st.top();
+    while (!st.empty()) {
+        TreeNode *node = st.top();
         st.pop();
-        swap(node->left,node->right);
+        swap(node->left, node->right);
         if (node->right) st.push(node->right);
-        if(node->left) st.push(node->left);
+        if (node->left) st.push(node->left);
     }
     return root;
 }
@@ -232,17 +264,17 @@ TreeNode* invertTree2(TreeNode* root) {
  * @param root
  * @return
  */
-vector<double> averageOfLevels(TreeNode* root) {
-    queue<TreeNode*> que;
+vector<double> averageOfLevels(TreeNode *root) {
+    queue<TreeNode *> que;
     if (root) que.push(root);
     vector<double> result;
 
-    while(!que.empty()){
+    while (!que.empty()) {
         int size = que.size();
-        double evl=0;
+        double evl = 0;
 
         for (int i = 0; i < size; ++i) {
-            TreeNode* node = que.front();
+            TreeNode *node = que.front();
             que.pop();
             evl += node->val;
             if (i == (size - 1)) {

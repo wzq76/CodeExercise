@@ -1,0 +1,96 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.21"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "CodeExercise",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "CodeExercise::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-CodeExercise-Debug-71f72bf234f741707696.json",
+					"name" : "CodeExercise",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ch02_test::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ch02_test-Debug-22696650cc056de2d634.json",
+					"name" : "ch02_test",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ch05_test::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ch05_test-Debug-80d3621c47797ab6dcbc.json",
+					"name" : "ch05_test",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lctest::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lctest-Debug-f9f577068aa20713c9ad.json",
+					"name" : "lctest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "search_test::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-search_test-Debug-56c53198f2b710d010b0.json",
+					"name" : "search_test",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/CLionProjects/CodeExercise/cmake-build-debug",
+		"source" : "D:/CLionProjects/CodeExercise"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

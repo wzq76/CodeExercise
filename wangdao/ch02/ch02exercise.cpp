@@ -63,7 +63,7 @@ void del_x_2(SqList &l, ElemType x) {
 
 /**
  * 4. 从有序顺序表中删除其值在给定值s与t之间(要求s小于t) 的所有元素，如果s或t不合理或顺序表为空，则显示出错信息并退出运行。
- * 算法思想: 先寻找值大于等于 s 的第一个元素(第一个删除的元素)， 然后寻找值大于 t 的第一个元素(最后一个删除的元素的下一个元素)，
+ * 算法思想:先寻找值大于等于 s 的第一个元素的位置(第一个删除的元素)， 然后寻找值大于 t 的第一个元素的位置(最后一个删除的元素的下一个元素)，
  *          要将这段元素删除，只需直接将后面的元素前移。
  */
 bool Del_s_t(SqList &l, ElemType s, ElemType t) {
@@ -781,16 +781,16 @@ LNode *find_addr(LNode *str1, LNode *str2) {
 
 void func(LNode *&h, int n) {
     int tag[n + 1];
-    for (int i = 0; i <= n; ++i)tag[i] = 0;
+    for (int i = 0; i <= n; ++i) tag[i] = 0;
     LNode *p = h->next, *pre = h, *q;
-    while(p){
-        ElemType e = p->data>0?p->data:-p->data;
+    while (p) {
+        ElemType e = p->data > 0 ? p->data : -p->data;
         if (tag[e] == 0) {
             tag[e] = 1;
-            pre->next = p;
-            pre=p;
-            p=p->next;
-        }else{
+            pre->next = p; //尾插法建立链表
+            pre = p;
+            p = p->next;
+        } else {
             q = p;
             p = p->next;
             free(q);
@@ -829,3 +829,32 @@ void func(LNode *&h, int n) {
  *       ③ 从单链表前后两段中依次各取一个结点
  * https://leetcode-cn.com/problems/middle-of-the-linked-list
  */
+void change_list(LNode *&h) {
+    if (!h->next) return;
+    LNode *slow = h, *fast = h;
+    while (slow && fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    LNode *q = slow->next, *p, *r;    //q为后面链表的首节点
+    slow->next = nullptr;
+    while (q) {                       //头插法逆置
+        p = q->next;                //防止断链
+        q->next = slow->next;
+        slow->next = q;
+        q = p;
+    }
+
+    //将前半段p和后半段q合并
+    p = h->next;
+    q = slow->next;
+    slow->next = NULL;
+    while (q) {
+        r = q->next;
+        q->next = p->next;
+        p->next = q;
+        p = q->next;
+        q = r;
+    }
+    
+}
