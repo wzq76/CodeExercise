@@ -3,6 +3,9 @@
 //
 
 #include "BiTree.h"
+#include "vector"
+
+using namespace std;
 
 /**
  * 19.【2014 统考真题】 二又树的带权路径长度( WPL )是二又树中所有叶结点的带权路径长度之和。
@@ -13,7 +16,17 @@
  *     (2) 若该结点是非叶结点， 则左子树不为空时，对左子树调用递归算法，右子树不为空，对右子树调用递归算法，深度均为本结点的深度加 1。
  *     (3) 最后返回计算出的 wpl 即可。
  */
-void WplSum(BiTree T, int depth, int &sum) {
+void Wpl(BiTree t, int dep, int &sum) {
+    if (t == nullptr) return;
+    if (t->lchild == NULL && t->rchild == NULL) sum += dep * t->data;
+    Wpl(t->lchild, dep + 1, sum);
+    Wpl(t->rchild, dep + 1, sum);
+}
+
+int WplSum(BiTree T, int depth, int &sum) {
+    sum = 0;
+    Wpl(T, 0, sum);
+    return sum;
 }
 
 /**
@@ -25,6 +38,22 @@ void WplSum(BiTree T, int depth, int &sum) {
 typedef struct {                    // MAX_SIZE为已定义常量
     int SqBiTNode[1000];   // 保存二叉树结点值的数组
     int ELemNum;                    // 实际占用的数组元素个数
-}SqBiTree;
+} SqBiTree;
+
+void traversal(SqBiTree root, int i, vector<int> &vec) {
+    if (i >= root.ELemNum || root.SqBiTNode[i] == -1) return;
+    traversal(root, 2 * i + 1, vec);
+    vec.push_back(root.SqBiTNode[i]);
+    traversal(root, 2 * i + 2, vec);
+}
+
+bool isValidBST(SqBiTree root) {
+    vector<int> vec;
+    traversal(root, 0, vec);
+    for (int i = 1; i < vec.size(); ++i) {
+        if (vec[i] < vec[i - 1]) return false;
+    }
+    return true;
+}
 
 

@@ -1,7 +1,7 @@
 //
 // Created by wzq12 on 2022-06-09.
 //
-
+#include <unordered_set>
 #include "ch02exercise.cpp"
 #include <vector>
 #include <iostream>
@@ -57,9 +57,9 @@ int main(){
 //        cout<<item<<' ';
 //    }
 //9
-    int a[] = {1,2,3,5,6};
-    vector<int> vec = {1,2,3,5,6};
-    SearchExcgIst(vec,5,4);
+//    int a[] = {1,2,3,5,6};
+//    vector<int> vec = {1,2,3,5,6};
+//    SearchExcgIst(vec,5,4);
 //    for (int n: a) {
 //        cout<<n<<' ';
 //    }
@@ -73,16 +73,17 @@ int main(){
 //13
 //    int a[] = {1,2,3};
 //   cout<< findMissMin(a,3);
-
+//14
+//    cout<<maxDifference(v1,8);
 
 
 /**
  * 链表
  */
     LinkList ll1,ll2,ll3;
-    int c[] = {1,2,3,4,5};
+    int c[] = {1,-2,2,4,-4};
     List_TailInsert(ll1,c,5);
-//    PrintLinkList(ll1);
+    PrintLinkList(ll1);
 
 //1
 //    Del_X_1(ll1,13);
@@ -115,10 +116,10 @@ int main(){
 
 
 
-     Search_k(ll1,3);
+//     Search_k(ll1,3);
 
-
-
+    func1(ll1,5);
+    PrintLinkList(ll1);
 
 
 

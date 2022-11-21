@@ -42,6 +42,7 @@ vector<int> inorderTraversal(TreeNode *root) {
     }
     return result;
 }
+
 /**
  * 98.验证二叉搜索树
  */
@@ -55,10 +56,10 @@ void traversal(TreeNode *root) {
 }
 
 bool isValidBST(TreeNode *root) {
-    vec.clear();
+//    vec.clear();
     traversal(root);
-    for (int i = 1; i <vec.size() ; ++i) {
-        if (vec[i]<=vec[i-1])  return false;
+    for (int i = 1; i < vec.size(); ++i) {
+        if (vec[i] <= vec[i - 1]) return false;
     }
     return true;
 }
@@ -161,6 +162,35 @@ vector<vector<int>> levelOrderBottom(TreeNode *root) {
     }
     reverse(result.begin(), result.end());
     return result;
+}
+
+/**
+ * 112. 路径总和
+ * @param cur
+ * @param count
+ * @return
+ */
+bool traversal(TreeNode *cur, int count) {
+    // 如果是叶子，并且计数为0
+    if (cur->left == nullptr && cur->right == nullptr && count == 0)return true;
+    if (cur->left == nullptr && cur->right == nullptr && count != 0) return false;
+
+    if (cur->left) { //左孩子存在向左递归
+        count -= cur->left->val;
+        if (traversal(cur->left, count)) return true;
+        count += cur->left->val; //向左递归结果不符合条件回溯
+    }
+    if (cur->right) {
+        count -= cur->right->val;
+        if (traversal(cur->right, count)) return true;
+        count += cur->right->val;
+    }
+    return false;
+}
+
+bool hasPathSum(TreeNode *root, int targetSum) {
+    if (!root) return false;
+    return traversal(root, targetSum - root->val);
 }
 
 /**

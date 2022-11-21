@@ -6,6 +6,7 @@
 #include "LinkList.cpp"
 #include <stack>
 #include "vector"
+#include <unordered_set>
 
 /**
  * 1. 从顺序表中删除具有最小值的元素(假设唯一)并由函数返回被删元素的值。空出的位置由最后一个元素填补，
@@ -262,6 +263,61 @@ int findMissMin(int a[], int n) {
         if (b[j] == 0)
             return j;
     }
+}
+
+int firstMissingPositive(vector<int> &nums) {
+    int n = nums.size();
+    unordered_set<int> st;
+    for (int num: nums) {
+        st.insert(num);
+    }
+    for (int i = 1; i <= n; ++i) {
+        if (!st.count(i)) {
+            return i;
+        }
+    }
+    return n + 1;
+}
+
+/**
+ * 14.【2016】已知由 n个正整数构成的集合将其划分为两个不相交的子集A1和A2,元素个数分别是 n1和n2,中元素之和分别为 S1和 S2。
+ * 设计一个尽可能高效的划分算法，满足 |n1-n2| 最小且|S1-S2|最大。要求：
+⑴ 给出算法的基本设计思想。
+⑵ 根据设计思想，采用C或C++语言描述算法，关键之处给出注释。
+⑶ 说明你所设计算法的时间复杂度和空间复杂度。
+ */
+int partition(vector<int> &a, int low, int high) {
+    int pivot = a[low];
+    while (low < high) {
+        while (low < high && a[high] >= pivot) high--;
+        a[low] = a[high];
+        while (low < high && a[low] <= pivot) low++;
+        a[high] = a[low];
+    }
+    a[low] = pivot;                         //枢轴元素存放到最终位置
+    return low;
+}
+
+void QuickSort(vector<int> &a, int low, int high) {
+    if (low < high) {
+        int pivot_pos = partition(a, low, high);
+        QuickSort(a, low, pivot_pos - 1);
+        QuickSort(a, pivot_pos + 1, high);
+    }
+}
+
+int maxDifference(vector<int> &a, int n) {
+//    vector<int> nums;
+    QuickSort(a, 0, n - 1);
+    int s1 = 0;
+    for (int i = 0; i < n / 2; ++i) {
+        s1 += a[i];
+    }
+    int s2 = 0;
+    for (int i = n / 2; i < n; ++i) {
+        s2 += a[i];
+    }
+    return s2 - s1;
 }
 
 /**
@@ -770,7 +826,32 @@ LNode *find_addr(LNode *str1, LNode *str2) {
     }
     return p1;
 }
-
+LNode *fing_addr(LNode *str1,LNode *str2){
+    int l1 = 0;
+    int l2 = 0;
+    LNode *p1 = str1, *p2 = str2;
+    while (p1 != nullptr) {
+        l1++;
+        p1 = p1->next;
+    }
+    while (p2 != nullptr) {
+        l2++;
+        p2 = p2->next;
+    }
+    p1 = str1;
+    p2 = str2;
+    int d = abs(l1-l2);
+    if (l1 > l2) {
+        while (d-- > 0) p1 = p1->next;
+    } else if (l1 < l2) {
+        while (d-- > 0) p2 = p2->next;
+    }
+    while (p1 != p2) {
+        p1 = p1->next;
+        p2 = p2->next;
+    }
+    return p1;
+}
 /**
  * 23.【2015】用单链表保存 m 个整数，结点的结构为 [data][link]，且 |data|<=n (n 为正整数)。现要求设计一个时间复杂度尽可能高效的算法，
  *     对于链表中 data 的绝对值相等的结点，仅保留第一次出现的结点而删除其余绝对值相等的结点。
@@ -799,6 +880,23 @@ void func(LNode *&h, int n) {
     pre->next = NULL;
 }
 
+void func1(LNode *h, int m) {
+    vector<int> st(m + 1);
+    LNode *pre = h, *p = h->next, *q;
+    while (p) {
+        if (st[abs(p->data)]) {
+            q = p;
+            p = p->next;
+            pre->next = p;
+            delete q;
+        } else{
+            st[abs(p->data)] = 1;
+            p = p->next;
+            pre = pre->next;
+        }
+
+    }
+}
 /**
  * 24.设计一个算法完成以下功能:判断一个链表是否有环，如果有，找出环的入口点并返回，否则返回 NULL。
  * 算法思想:
@@ -856,5 +954,6 @@ void change_list(LNode *&h) {
         p = q->next;
         q = r;
     }
-    
+
+
 }
