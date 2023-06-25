@@ -2,6 +2,7 @@
 // Created by wzq12 on 2022-06-10.
 //
 #include <vector>
+
 using namespace std;
 
 
@@ -10,23 +11,25 @@ using namespace std;
  * @param nums
  * @return
  */
-int removeDuplicates(vector<int>& nums) {
-    int slow=0;
+int removeDuplicates(vector<int> &nums) {
+    int slow = 0;
     for (int fast = 1; fast < nums.size(); ++fast) {
         if (nums[fast] != nums[slow]) {
             nums[++slow] = nums[fast];
         }
     }
-    return slow+1;
+    return slow + 1;
 }
+
 /**
- * 27
+ * 27. 移除元素
  * @param nums
  * @param val
  * @return
+ * 双指针，fast用来判断，slow用来确定数组中的值
  */
-int removeElement(vector<int>& nums, int val) {
-    int slow=0;
+int removeElement(vector<int> &nums, int val) {
+    int slow = 0;
     for (int fast = 0; fast < nums.size(); ++fast) {
         if (nums[fast] != val) {
             nums[slow++] = nums[fast];
@@ -44,19 +47,20 @@ int removeElement(vector<int>& nums, int val) {
  */
 
 
-int searchInsert(vector<int>& nums, int target) {
+int searchInsert(vector<int> &nums, int target) {
     int left = 0;
-    int right = nums.size()-1;
-    while (left<=right){
-        int middle = (left+right)/2;
+    int right = nums.size() - 1;
+    while (left <= right) {
+        int middle = (left + right) / 2;
         if (nums[middle] > target) {
-            right = middle-1;
-        }else if (nums[middle] < target) {
-            left = middle +1;
-        }else return middle;
+            right = middle - 1;
+        } else if (nums[middle] < target) {
+            left = middle + 1;
+        } else return middle;
     }
-    return right+1;
+    return right + 1;
 }
+
 /**
  * 59 螺旋矩阵
  * @param n
@@ -96,6 +100,53 @@ vector<vector<int>> generateMatrix(int n) {
 }
 
 /**
+ * 75. 颜色分类
+ * @param nums
+ */
+void sortColors(vector<int> &nums) {
+    int q = 0, p = 0;
+    int flag = 0;
+    while (q < nums.size()) {
+        if (p <= nums.size() && nums[p] == flag) {
+            swap(nums[q++], nums[p++]);
+        } else {
+            p++;
+        }
+        if (p >= nums.size() && flag < 2) {
+            flag++;
+            p = q;
+        }
+    }
+
+}
+
+/**
+ * 88. 合并两个有序数组
+ * @param nums1
+ * @param m
+ * @param nums2
+ * @param n
+ * 从后往前合并
+ */
+void merge(vector<int> &nums1, int m, vector<int> &nums2, int n) {
+    if (!n)
+        return;
+    int i = m - 1, j = n - 1;
+    int p = nums1.size() - 1;//总数量
+    while (i >= 0 && j >= 0) {
+        if (nums1[i] > nums2[j]) {
+            nums1[p--] = nums1[i--];
+        } else {
+            nums1[p--] = nums2[j--];
+        }
+    }
+    while (j >= 0) {//数组二剩余
+        nums1[p--] = nums2[j--];
+    }
+
+}
+
+/**
  * 704
  * @param nums
  * @param target
@@ -107,13 +158,14 @@ int search(vector<int> &nums, int target) {
     while (left <= right) {
         int middle = (right + left) / 2;
         if (nums[middle] > target) {
-            right = middle-1;
-        }else if (nums[middle]< target) {
-            left = middle+1;
-        }else return middle;
+            right = middle - 1;
+        } else if (nums[middle] < target) {
+            left = middle + 1;
+        } else return middle;
     }
     return -1;
 }
+
 /**
  * 977
  * @param nums
@@ -137,6 +189,4 @@ vector<int> sortedSquares(vector<int> &nums) {
 
 
 
-int main() {
-};
 

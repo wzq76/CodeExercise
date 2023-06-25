@@ -1,18 +1,18 @@
 from typing import List
 
 
+# 27. 移除元素
+
+
 class Solution:
-    def search(self, nums: List[int], target: int) -> int:
-        left, right = 0, len(nums) - 1
-
-        while left <= right:
-            middle = (left + right) // 2
-
-            if nums[middle] < target:
-                left = middle + 1
-            elif nums[middle] > target:
-                right = middle - 1
-            else:
-                return middle
-        return -1
+    def removeElement(self, nums: List[list], val: int) -> int:
+        fast = 0
+        slow = 0
+        size = len(nums)
+        while fast < size:
+            if nums[fast] != val:
+                nums[slow] = nums[fast]
+                slow += 1
+            fast += 1
+        return slow
 

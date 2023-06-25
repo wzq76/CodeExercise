@@ -7,12 +7,12 @@
 
 using namespace std;
 
-
 /**
  * 242.有效的字母异位词
  * @param s
  * @param t
  * @return
+ *
  */
 bool isAnagram(string s, string t) {
     if(s.size() != t.size()) return false;

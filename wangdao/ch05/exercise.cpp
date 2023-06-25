@@ -30,6 +30,26 @@ int WplSum(BiTree T, int depth, int &sum) {
 }
 
 /**
+ * 20.【2017 统考真题】请设计一个算法，将给定的表达式树(二叉树)转换为等价的中缀表达式(通过括号反映操作符的计算次序)并输出。
+ *     例如，当下列两棵表达式树作为算法的输入时:
+ *     输出的等价中缀表达式分别为(a+b)*(c女(-d))和(a*b)+(- (c-d))
+ * 算法思想:
+ *     表达式树的中序序列加上必要的括号即为等价的中缀表达式。可以基于二叉树的中序遍历策略得到所需的表达式。
+ */
+void BtreeToExp(BiTree T, int depth){
+    if(!T)return;
+    if (T->lchild == nullptr && T->rchild == nullptr) {
+        cout<<T->data;
+    } else{
+        if (depth > 1) cout<<'(';
+        BtreeToExp(T->lchild,depth+=1);
+        cout<<T->data;
+        BtreeToExp(T->rchild,depth+=1);
+        if(depth>1) cout<<')';
+    }
+}
+
+/**
  * 【2022 统考真题】T中不存在的结点在数组SqBiTNode中用-1表示。
  * 请设计一个尽可能高效的算法，判定一棵采用这种方式存储的二叉树是否为二叉搜索树，若是，则返回true，否则，返回false，要求：
 ⑴ 给出算法的基本设计思想。
@@ -41,7 +61,7 @@ typedef struct {                    // MAX_SIZE为已定义常量
 } SqBiTree;
 
 void traversal(SqBiTree root, int i, vector<int> &vec) {
-    if (i >= root.ELemNum || root.SqBiTNode[i] == -1) return;
+    if (i >= root.ELemNum || root.SqBiTNode[i] == -1) return;// 越界或者为空结点
     traversal(root, 2 * i + 1, vec);
     vec.push_back(root.SqBiTNode[i]);
     traversal(root, 2 * i + 2, vec);
@@ -55,5 +75,3 @@ bool isValidBST(SqBiTree root) {
     }
     return true;
 }
-
-

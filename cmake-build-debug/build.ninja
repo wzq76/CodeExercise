@@ -40,72 +40,6 @@ include CMakeFiles/rules.ninja
 # Logical path to working directory; prefix for absolute paths.
 
 cmake_ninja_workdir = D$:/CLionProjects/CodeExercise/cmake-build-debug/
-# =============================================================================
-# Object build statements for EXECUTABLE target ch05_test
-
-
-#############################################
-# Order-only phony target for ch05_test
-
-build cmake_object_order_depends_target_ch05_test: phony || CMakeFiles/ch05_test.dir
-
-build CMakeFiles/ch05_test.dir/wangdao/ch05/ch05_test.cpp.obj: CXX_COMPILER__ch05_test_Debug D$:/CLionProjects/CodeExercise/wangdao/ch05/ch05_test.cpp || cmake_object_order_depends_target_ch05_test
-  DEP_FILE = CMakeFiles\ch05_test.dir\wangdao\ch05\ch05_test.cpp.obj.d
-  FLAGS = -g -std=gnu++11
-  OBJECT_DIR = CMakeFiles\ch05_test.dir
-  OBJECT_FILE_DIR = CMakeFiles\ch05_test.dir\wangdao\ch05
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target ch05_test
-
-
-#############################################
-# Link the executable ch05_test.exe
-
-build ch05_test.exe: CXX_EXECUTABLE_LINKER__ch05_test_Debug CMakeFiles/ch05_test.dir/wangdao/ch05/ch05_test.cpp.obj
-  FLAGS = -g
-  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\ch05_test.dir
-  POST_BUILD = cd .
-  PRE_LINK = cd .
-  TARGET_FILE = ch05_test.exe
-  TARGET_IMPLIB = libch05_test.dll.a
-  TARGET_PDB = ch05_test.exe.dbg
-
-# =============================================================================
-# Object build statements for EXECUTABLE target CodeExercise
-
-
-#############################################
-# Order-only phony target for CodeExercise
-
-build cmake_object_order_depends_target_CodeExercise: phony || CMakeFiles/CodeExercise.dir
-
-build CMakeFiles/CodeExercise.dir/main.cpp.obj: CXX_COMPILER__CodeExercise_Debug D$:/CLionProjects/CodeExercise/main.cpp || cmake_object_order_depends_target_CodeExercise
-  DEP_FILE = CMakeFiles\CodeExercise.dir\main.cpp.obj.d
-  FLAGS = -g -std=gnu++11
-  OBJECT_DIR = CMakeFiles\CodeExercise.dir
-  OBJECT_FILE_DIR = CMakeFiles\CodeExercise.dir
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target CodeExercise
-
-
-#############################################
-# Link the executable CodeExercise.exe
-
-build CodeExercise.exe: CXX_EXECUTABLE_LINKER__CodeExercise_Debug CMakeFiles/CodeExercise.dir/main.cpp.obj
-  FLAGS = -g
-  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\CodeExercise.dir
-  POST_BUILD = cd .
-  PRE_LINK = cd .
-  TARGET_FILE = CodeExercise.exe
-  TARGET_IMPLIB = libCodeExercise.dll.a
-  TARGET_PDB = CodeExercise.exe.dbg
-
 
 #############################################
 # Utility command for rebuild_cache
@@ -185,6 +119,39 @@ build search_test.exe: CXX_EXECUTABLE_LINKER__search_test_Debug CMakeFiles/searc
   TARGET_PDB = search_test.exe.dbg
 
 # =============================================================================
+# Object build statements for EXECUTABLE target ch05_test
+
+
+#############################################
+# Order-only phony target for ch05_test
+
+build cmake_object_order_depends_target_ch05_test: phony || CMakeFiles/ch05_test.dir
+
+build CMakeFiles/ch05_test.dir/wangdao/ch05/ch05_test.cpp.obj: CXX_COMPILER__ch05_test_Debug D$:/CLionProjects/CodeExercise/wangdao/ch05/ch05_test.cpp || cmake_object_order_depends_target_ch05_test
+  DEP_FILE = CMakeFiles\ch05_test.dir\wangdao\ch05\ch05_test.cpp.obj.d
+  FLAGS = -g -std=gnu++11
+  OBJECT_DIR = CMakeFiles\ch05_test.dir
+  OBJECT_FILE_DIR = CMakeFiles\ch05_test.dir\wangdao\ch05
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target ch05_test
+
+
+#############################################
+# Link the executable ch05_test.exe
+
+build ch05_test.exe: CXX_EXECUTABLE_LINKER__ch05_test_Debug CMakeFiles/ch05_test.dir/wangdao/ch05/ch05_test.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\ch05_test.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = ch05_test.exe
+  TARGET_IMPLIB = libch05_test.dll.a
+  TARGET_PDB = ch05_test.exe.dbg
+
+# =============================================================================
 # Object build statements for EXECUTABLE target lctest
 
 
@@ -231,8 +198,6 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # =============================================================================
 # Target aliases.
 
-build CodeExercise: phony CodeExercise.exe
-
 build ch02_test: phony ch02_test.exe
 
 build ch05_test: phony ch05_test.exe
@@ -249,7 +214,7 @@ build search_test: phony search_test.exe
 #############################################
 # Folder: D:/CLionProjects/CodeExercise/cmake-build-debug
 
-build all: phony ch05_test.exe CodeExercise.exe ch02_test.exe search_test.exe lctest.exe
+build all: phony ch02_test.exe search_test.exe ch05_test.exe lctest.exe
 
 # =============================================================================
 # Built-in targets
