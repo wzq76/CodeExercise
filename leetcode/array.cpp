@@ -5,6 +5,23 @@
 
 using namespace std;
 
+/**
+ * 9. 回文数
+ * @param x
+ * @return
+ */
+bool isPalindrome(int x) {
+    if (x < 0) {
+        return false;
+    }
+    long int temp = x, y = 0;
+    while (temp > 0) {
+        int last = temp % 10;
+        y = y *10 + last;
+        temp = temp / 10;
+    }
+    return x == y;
+}
 
 /**
  * 26
