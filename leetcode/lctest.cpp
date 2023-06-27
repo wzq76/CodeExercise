@@ -4,7 +4,8 @@
 #include "iostream"
 #include "vector"
 #include "array.cpp"
-
+#include <string>
+#include "DivideConquer.cpp"
 using namespace std;
 
 int majorityElement(vector<int> &nums) {
@@ -27,9 +28,13 @@ int majorityElement(vector<int> &nums) {
 }
 
 int main() {
-    vector<int> nums = {2, 0, 2, 1, 1, 0};
-    sortColors(nums);
+//    vector<int> nums = {2, 0, 2, 1, 1, 0};
+//    sortColors(nums);
+//
+//    for(auto const& value : nums)
+//        cout << value << "; ";
+    vector<string> strs = {"flower", "flow", "flight"};
+//    cout<< strs[0][0];
+    cout<<longestCommonPrefix(strs);
 
-    for(auto const& value : nums)
-        cout << value << "; ";
 };
