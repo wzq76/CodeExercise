@@ -17,7 +17,7 @@ bool isPalindrome(int x) {
     long int temp = x, y = 0;
     while (temp > 0) {
         int last = temp % 10;
-        y = y *10 + last;
+        y = y * 10 + last;
         temp = temp / 10;
     }
     return x == y;
@@ -27,12 +27,13 @@ bool isPalindrome(int x) {
  * 26
  * @param nums
  * @return
+ * 慢指针指向没重复元素，快指针向后判断
  */
 int removeDuplicates(vector<int> &nums) {
     int slow = 0;
-    for (int fast = 1; fast < nums.size(); ++fast) {
-        if (nums[fast] != nums[slow]) {
-            nums[++slow] = nums[fast];
+    for (int i = 1; i < nums.size(); ++i) {
+        if (nums[slow] != nums[i]) {
+            nums[++slow] = nums[i];
         }
     }
     return slow + 1;
@@ -54,7 +55,15 @@ int removeElement(vector<int> &nums, int val) {
     }
     return slow;
 }
+/**
+ * 34. 在排序数组中查找元素的第一个和最后一个位置
+ * @param nums
+ * @param target
+ * @return
+ */
+vector<int> searchRange(vector<int>& nums, int target) {
 
+}
 
 /**
  * 35
@@ -163,25 +172,6 @@ void merge(vector<int> &nums1, int m, vector<int> &nums2, int n) {
 
 }
 
-/**
- * 704
- * @param nums
- * @param target
- * @return
- */
-int search(vector<int> &nums, int target) {
-    int left = 0;
-    int right = nums.size() - 1;
-    while (left <= right) {
-        int middle = (right + left) / 2;
-        if (nums[middle] > target) {
-            right = middle - 1;
-        } else if (nums[middle] < target) {
-            left = middle + 1;
-        } else return middle;
-    }
-    return -1;
-}
 
 /**
  * 977

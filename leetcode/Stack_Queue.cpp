@@ -8,31 +8,30 @@
 #include <algorithm>
 #include <map>
 #include <unordered_map>
+
 using namespace std;
-
-
 
 
 /**
  * 20 有效括号
- * @param s
+ * @param
  * @return
+ * 左括号没有右括号匹配
+ *
  */
 bool isValid(string s) {
-    if (s.size() % 2 != 0) return false;
+    if (s.size() % 2 != 0) return false; //奇数个退出
     stack<char> st;
     for (int i = 0; i < s.size(); ++i) {
-        //遍历发现左括号，进栈右括号
-        if (s[i] == '(') st.push(')');
-        else if (s[i] == '{') st.push('}');
-        else if (s[i] == '[') st.push(']');
-            // 第三种情况：遍历过程中，栈已经为空了，说明右括号没有找到对应的左括号
-            // 第二种情况：遍历字符串匹配的过程中，发现栈里不是我们要匹配的字符
-        else if (st.empty() || s[i] != st.top()) return false;
+        if (s[i] =='(' ) st.push(')');
+        else if (s[i]=='[') st.push(']');
+        else if (s[i]=='{') st.push('}');
+        else if (st.empty() || st.top() != s[i] ) return false; //遇到右括号不匹配栈顶元素，左括号或右括号个数多都退出
         else st.pop();
     }
     return st.empty();
 }
+
 /**
  * 150. 逆波兰表达式求值
  * @param tokens
@@ -50,7 +49,7 @@ int evalRPN(vector<string> &tokens) {
             if (tokens[i] == "-") st.push(num2 - num1);
             if (tokens[i] == "*") st.push(num2 * num1);
             if (tokens[i] == "/") st.push(num2 / num1);
-        }else {
+        } else {
             st.push(stoi(tokens[i]));
         }
     }
@@ -70,7 +69,7 @@ void push(int x) {
 
 int pop() {
     int size = que.size() - 1;
-    while (size--){
+    while (size--) {
         que.push(que.front()); //循环入队实现栈
         que.pop();
     }
@@ -86,6 +85,7 @@ int top() {
 bool empty() {
     return que.empty();
 }
+
 /**
  * 232用栈实现队列
  */
@@ -149,6 +149,7 @@ vector<int> topKFrequent(vector<int> &nums, int k) {
     }
     return result;
 }
+
 /**
  * 1047. 删除字符串中的所有相邻重复项
  * @param s
@@ -156,29 +157,29 @@ vector<int> topKFrequent(vector<int> &nums, int k) {
  */
 string removeDuplicates(string s) {
     stack<char> st;
-    for (char sc :s ) {
-        if (st.empty() || sc!=st.top()) {
+    for (char sc: s) {
+        if (st.empty() || sc != st.top()) {
             st.push(sc);
-        } else{
+        } else {
             st.pop(); // sc 与 st.top()相等的情况消除
         }
     }
-    string result="";
-    while(!st.empty()){
+    string result = "";
+    while (!st.empty()) {
         result += st.top();
         st.pop();
     }
-    reverse(result.begin(),result.end());
+    reverse(result.begin(), result.end());
     return result;
 }
+
 //拿string直接当作栈用
 string removeDuplicates1(string S) {
     string result;
-    for(char s : S) {
-        if(result.empty() || result.back() != s) {
+    for (char s: S) {
+        if (result.empty() || result.back() != s) {
             result.push_back(s);
-        }
-        else {
+        } else {
             result.pop_back();
         }
     }
