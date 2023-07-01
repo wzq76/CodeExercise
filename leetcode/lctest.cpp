@@ -6,6 +6,7 @@
 #include "array.cpp"
 #include <string>
 #include "DivideConquer.cpp"
+
 using namespace std;
 
 int majorityElement(vector<int> &nums) {
@@ -35,6 +36,11 @@ int main() {
 //        cout << value << "; ";
     vector<string> strs = {"flower", "flow", "flight"};
 //    cout<< strs[0][0];
-    cout<<longestCommonPrefix(strs);
+    cout << longestCommonPrefix(strs);
+
+    string str = "1234 5678";
+    for (string::reverse_iterator itr = str.rbegin(); itr != str.rend(); ++itr)
+        cout << *itr;
+
 
 };
