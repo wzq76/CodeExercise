@@ -49,11 +49,29 @@ int searchInsert(vector<int> &nums, int target) {
             right = middle - 1;
         } else if (middle < target) {
             left = middle + 1;
-        } else return middle; //在数组中间位置插入
+        } else return middle; //在数组中间位置插入middle会等于left和right
     }
-    //如果在0位置插入right会在-1时退出
+    //如果在0位置插入right会一直左移在-1时退出
     //如果在末尾位置插入left会在nums.size()时退出
     return right + 1;
+}
+/**
+ * 69. x 的平方根
+ * @param x
+ * @return
+ */
+int mySqrt(int x) {
+    int i=0,j=x,ans=-1;
+    while (i<=j){
+        int mid = (i+j)/2;
+        if ((long long) mid * mid <= x) {
+            ans=mid;
+            i=mid+1;
+        } else{
+            j=mid-1;
+        }
+    }
+    return ans;
 }
 
 /**

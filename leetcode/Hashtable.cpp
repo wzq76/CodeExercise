@@ -6,6 +6,15 @@
 #include <unordered_set>
 
 using namespace std;
+/**
+ * 41. 缺失的第一个正数
+ * @param nums
+ * @return
+ */
+int firstMissingPositive(vector<int>& nums) {
+
+}
+
 
 /**
  * 242.有效的字母异位词
