@@ -101,7 +101,16 @@ bool searchMatrix(vector<vector<int>> &matrix, int target) {
  * @return
  */
 int findMin(vector<int>& nums) {
-
+    int left=0,right=nums.size()-1;
+    while(left<right){
+        int mid=left+(right-left)/2;
+        if (nums[mid] < nums[right]) {
+            right=mid;
+        }else{
+            left=mid+1;
+        }
+    }
+    return nums[right];
 }
 /**
  * 162. 寻找峰值
@@ -120,6 +129,23 @@ int findPeakElement(vector<int>& nums) {
 vector<int> twoSum(vector<int>& numbers, int target) {
 
 }
+/**
+ * 200. 岛屿数量
+ * @param grid
+ * @return
+ */
+int numIslands(vector<vector<char>>& grid) {
+
+}
+/**
+ * 695. 岛屿的最大面积
+ * @param grid
+ * @return
+ */
+int maxAreaOfIsland(vector<vector<int>>& grid) {
+
+}
+
 
 /**
  * 704. 二分查找

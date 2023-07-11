@@ -49,6 +49,15 @@ ListNode* removeNthFromEnd(ListNode* head, int n) {
     return dummyHead->next;
 }
 /**
+ * 21. 合并两个有序链表
+ * @param list1
+ * @param list2
+ * @return
+ */
+ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+
+}
+/**
  * 24 两两交换链表中的结点
  * @param head
  * @return
@@ -65,6 +74,21 @@ ListNode *swapPairs(ListNode *head) {
     }
     return dummyHead->next; //如果返回head，head还是指向1
 }
+/**
+ * 83. 删除排序链表中的重复元素
+ * @param head
+ * @return
+ */
+ListNode* deleteDuplicates(ListNode* head) {
+
+}
+/**
+ * 141. 环形链表
+ */
+bool hasCycle(ListNode *head) {
+
+}
+
 /**
  * 142 环形链表
  * @param head
@@ -88,7 +112,21 @@ ListNode *detectCycle(ListNode *head) {
     }
     return nullptr;
 }
+/**
+ * 143. 重排链表
+ */
+void reorderList(ListNode* head) {
 
+}
+/**
+ * 160. 相交链表
+ * @param headA
+ * @param headB
+ * @return
+ */
+ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+
+}
 
 
 /**
@@ -142,6 +180,15 @@ ListNode *reverseList2(ListNode *head) {
     }
     return pre;
 }
+/**
+ * 234. 回文链表
+ * @param head
+ * @return
+ */
+bool isPalindrome(ListNode* head) {
+
+}
+
 /**
  * 707 设计链表
  */

@@ -138,6 +138,7 @@ vector<vector<int>> levelOrder2(TreeNode *root) {
     return result;
 }
 
+
 /**
  * 107 自底向上层序遍历
  * @param root
@@ -163,7 +164,14 @@ vector<vector<int>> levelOrderBottom(TreeNode *root) {
     reverse(result.begin(), result.end());
     return result;
 }
+/**
+ * 108. 将有序数组转换为二叉搜索树
+ * @param nums
+ * @return
+ */
+TreeNode* sortedArrayToBST(vector<int>& nums) {
 
+}
 /**
  * 112. 路径总和
  * @param cur
@@ -215,7 +223,7 @@ vector<int> preorderTraversal(TreeNode *root) {
 }
 
 /**
- * 二叉树后序遍历
+ * 145.二叉树后序遍历
  * @param root
  * @return
  */
@@ -236,7 +244,7 @@ vector<int> postorderTraversal(TreeNode *root) {
 }
 
 /**
- * 199 二叉树的右视图：判断每层的最后一个节点
+ * 199.二叉树的右视图：判断每层的最后一个节点
  * @param root
  * @return
  */
@@ -288,7 +296,15 @@ TreeNode *invertTree2(TreeNode *root) {
     }
     return root;
 }
+/**
+ * 230. 二叉搜索树中第K小的元素
+ * @param root
+ * @param k
+ * @return
+ */
+int kthSmallest(TreeNode* root, int k) {
 
+}
 /**
  * 637 二叉树层平均值
  * @param root
@@ -318,7 +334,14 @@ vector<double> averageOfLevels(TreeNode *root) {
     return result;
 
 }
+/**
+ * 958. 二叉树的完全性检验
+ * @param root
+ * @return
+ */
+bool isCompleteTree(TreeNode* root) {
 
+}
 
 
 
