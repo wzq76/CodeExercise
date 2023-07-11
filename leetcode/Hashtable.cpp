@@ -14,7 +14,14 @@ using namespace std;
 int firstMissingPositive(vector<int>& nums) {
 
 }
+/**
+ * 169. 多数元素
+ * @param nums
+ * @return
+ */
+int majorityElement(vector<int>& nums) {
 
+}
 
 /**
  * 242.有效的字母异位词

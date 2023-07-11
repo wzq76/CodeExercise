@@ -18,6 +18,17 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 /**
+ * 2. 两数相加
+ * @param l1
+ * @param l2
+ * @return
+ */
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+
+}
+
+
+/**
  * 19 删除倒数第n个
  * @param head
  * @param n

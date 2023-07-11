@@ -55,23 +55,70 @@ int searchInsert(vector<int> &nums, int target) {
     //如果在末尾位置插入left会在nums.size()时退出
     return right + 1;
 }
+
 /**
  * 69. x 的平方根
  * @param x
  * @return
  */
 int mySqrt(int x) {
-    int i=0,j=x,ans=-1;
-    while (i<=j){
-        int mid = (i+j)/2;
+    int i = 0, j = x, ans = -1;
+    while (i <= j) {
+        int mid = (i + j) / 2;
         if ((long long) mid * mid <= x) {
-            ans=mid;
-            i=mid+1;
-        } else{
-            j=mid-1;
+            ans = mid;
+            i = mid + 1;
+        } else {
+            j = mid - 1;
         }
     }
     return ans;
+}
+
+/**
+ * 74. 搜索二维矩阵
+ * @param matrix
+ * @param target
+ * @return
+ */
+bool searchMatrix(vector<vector<int>> &matrix, int target) {
+    int m = matrix.size(), n = matrix[0].size();
+    int left = 0, right = m * n - 1;
+    while (left <= right) {
+        int mid = (right - left) / 2 + left;
+        int x = matrix[mid / n][mid % n];
+        if (x < target) {
+            left = mid + 1;
+        } else if (x > target) {
+            right = mid - 1;
+        }else return true;
+    }
+    return false;
+}
+/**
+ * 153. 寻找旋转排序数组中的最小值
+ * @param nums
+ * @return
+ */
+int findMin(vector<int>& nums) {
+
+}
+/**
+ * 162. 寻找峰值
+ * @param nums
+ * @return
+ */
+int findPeakElement(vector<int>& nums) {
+
+}
+/**
+ * 167. 两数之和 II - 输入有序数组
+ * @param numbers
+ * @param target
+ * @return
+ */
+vector<int> twoSum(vector<int>& numbers, int target) {
+
 }
 
 /**
