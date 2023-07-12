@@ -67,7 +67,7 @@ ListNode *mergeTwoLists(ListNode *list1, ListNode *list2) {
             p->next = p1;
             p1 = p1->next;
         }
-        p=p->next;
+        p = p->next;
     }
     if (p1 != NULL) {
         p->next = p1;
@@ -102,6 +102,36 @@ ListNode *swapPairs(ListNode *head) {
  * @return
  */
 ListNode *deleteDuplicates(ListNode *head) {
+
+}
+
+/**
+ * 86. 分隔链表
+ * @param head
+ * @param x
+ * @return
+ */
+ListNode *partition(ListNode *head, int x) {
+    ListNode *p = head;
+    //xiao
+    ListNode *dummyH1 = new ListNode(-1), *p1 = dummyH1;
+    //da
+    ListNode *dummyH2 = new ListNode(-1), *p2 = dummyH2;
+
+    while (p != nullptr) {
+        if (p->val >= x) {
+            p2->next = p;
+            p2 = p2->next;
+        } else {
+            p1->next = p;
+            p1 = p1->next;
+        }
+        ListNode *t = p->next;
+        p->next = nullptr;
+        p=t;
+    }
+    p1->next = dummyH2->next;
+    return dummyH1->next;
 
 }
 

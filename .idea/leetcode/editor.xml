@@ -641,6 +641,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[86]分隔链表.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/doc/content/[86]分隔链表.md" />
+              <option name="frontendQuestionId" value="leetcode.cn86" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[86]分隔链表.cpp" />
+              <option name="titleSlug" value="partition-list" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[88]合并两个有序数组.cpp">
           <value>
             <LeetcodeEditor>
