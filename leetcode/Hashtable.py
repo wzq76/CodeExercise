@@ -42,5 +42,6 @@ def threeSum(self, nums: List[int]) -> List[List[int]]:
     for i in range(len(nums)):
         if nums[i]>0:
             return result
-    if i>0 and nums[i]
+    if i>0 and nums[i]:
+        return
 

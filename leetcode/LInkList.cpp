@@ -17,13 +17,14 @@ struct ListNode {
 
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
+
 /**
  * 2. 两数相加
  * @param l1
  * @param l2
  * @return
  */
-ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+ListNode *addTwoNumbers(ListNode *l1, ListNode *l2) {
 
 }
 
@@ -34,29 +35,49 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
  * @param n
  * @return
  */
-ListNode* removeNthFromEnd(ListNode* head, int n) {
-    ListNode *dummyHead = new ListNode(0,head);
-    ListNode * slow= dummyHead,*fast = dummyHead; //双指针，快指针先走n+1步
-    while(n>=0 && fast){
+ListNode *removeNthFromEnd(ListNode *head, int n) {
+    ListNode *dummyHead = new ListNode(0, head);
+    ListNode *slow = dummyHead, *fast = dummyHead; //双指针，快指针先走n+1步
+    while (n >= 0 && fast) {
         fast = fast->next;
         n--;
     }
-    while(fast){
+    while (fast) {
         fast = fast->next;
         slow = slow->next;
     }
     slow->next = slow->next->next;
     return dummyHead->next;
 }
+
 /**
  * 21. 合并两个有序链表
  * @param list1
  * @param list2
  * @return
  */
-ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-
+ListNode *mergeTwoLists(ListNode *list1, ListNode *list2) {
+    ListNode *dummy = new ListNode(-1), *p = dummy;
+    ListNode *p1 = list1, *p2 = list2;
+    while (p1 != NULL && p2 != NULL) {
+        if (p1->val > p2->val) {
+            p->next = p2;
+            p2 = p2->next;
+        } else {
+            p->next = p1;
+            p1 = p1->next;
+        }
+        p=p->next;
+    }
+    if (p1 != NULL) {
+        p->next = p1;
+    }
+    if (p2 != NULL) {
+        p->next = p2;
+    }
+    return dummy->next;
 }
+
 /**
  * 24 两两交换链表中的结点
  * @param head
@@ -74,14 +95,16 @@ ListNode *swapPairs(ListNode *head) {
     }
     return dummyHead->next; //如果返回head，head还是指向1
 }
+
 /**
  * 83. 删除排序链表中的重复元素
  * @param head
  * @return
  */
-ListNode* deleteDuplicates(ListNode* head) {
+ListNode *deleteDuplicates(ListNode *head) {
 
 }
+
 /**
  * 141. 环形链表
  */
@@ -97,13 +120,13 @@ bool hasCycle(ListNode *head) {
 ListNode *detectCycle(ListNode *head) {
     ListNode *fast = head;
     ListNode *slow = head;
-    while(fast && fast->next){
+    while (fast && fast->next) {
         slow = slow->next;
         fast = fast->next->next;
         if (slow == fast) {
             ListNode *index1 = fast;
             ListNode *index2 = head;
-            while(index1 != index2){
+            while (index1 != index2) {
                 index1 = index1->next;
                 index2 = index2->next;
             }
@@ -112,12 +135,14 @@ ListNode *detectCycle(ListNode *head) {
     }
     return nullptr;
 }
+
 /**
  * 143. 重排链表
  */
-void reorderList(ListNode* head) {
+void reorderList(ListNode *head) {
 
 }
+
 /**
  * 160. 相交链表
  * @param headA
@@ -180,12 +205,13 @@ ListNode *reverseList2(ListNode *head) {
     }
     return pre;
 }
+
 /**
  * 234. 回文链表
  * @param head
  * @return
  */
-bool isPalindrome(ListNode* head) {
+bool isPalindrome(ListNode *head) {
 
 }
 
