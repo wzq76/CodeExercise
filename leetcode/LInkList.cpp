@@ -3,7 +3,8 @@
 //
 
 #include <iostream>
-
+#include <vector>
+#include <queue>
 using namespace std;
 //leetcode submit region begin(Prohibit modification and deletion)
 
@@ -42,7 +43,7 @@ ListNode *removeNthFromEnd(ListNode *head, int n) {
         fast = fast->next;
         n--;
     }
-    while (fast) {
+    while (fast != nullptr) {
         fast = fast->next;
         slow = slow->next;
     }
@@ -77,7 +78,24 @@ ListNode *mergeTwoLists(ListNode *list1, ListNode *list2) {
     }
     return dummy->next;
 }
-
+/**
+ * 23. 合并K个升序链表
+ * @param lists
+ * @return
+ */
+ListNode* mergeKLists(vector<ListNode*>& lists) {
+    if (lists.empty()) return nullptr;
+    ListNode * dummy = new ListNode(-1),*p=dummy;
+    priority_queue<ListNode,vector<ListNode>,greater<ListNode>> q;
+    for (auto head:lists) {
+        if (head != nullptr) {
+            q.push(head);
+        }
+    }
+    while (!q.empty()){
+        ListNode * node = q.top();
+    }
+}
 /**
  * 24 两两交换链表中的结点
  * @param head
@@ -143,7 +161,7 @@ bool hasCycle(ListNode *head) {
 }
 
 /**
- * 142 环形链表
+ * 142. 环形链表
  * @param head
  * @return
  */
@@ -153,9 +171,9 @@ ListNode *detectCycle(ListNode *head) {
     while (fast && fast->next) {
         slow = slow->next;
         fast = fast->next->next;
-        if (slow == fast) {
-            ListNode *index1 = fast;
-            ListNode *index2 = head;
+        if (slow == fast) {             //相遇
+            ListNode *index1 = fast;    //从相遇点遍历
+            ListNode *index2 = head;    //从头开始遍历
             while (index1 != index2) {
                 index1 = index1->next;
                 index2 = index2->next;
@@ -180,6 +198,17 @@ void reorderList(ListNode *head) {
  * @return
  */
 ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+    ListNode* p1=headA;
+    ListNode* p2=headB;
+    while(p1!=p2){
+        if (p1 == nullptr) {
+            p1->next=headB;
+        }else p1=p1->next;
+        if (p2 == nullptr) {
+            p2->next=headA;
+        }else p2=p2->next;
+    }
+    return p1;
 
 }
 
@@ -332,3 +361,18 @@ private:
     int _size;
     LinkedNode *_dummyHead;
 };
+
+/**
+ * 876. 链表的中间节点
+ * @param head
+ * @return
+ */
+ListNode* middleNode(ListNode* head) {
+    ListNode * slow = head;
+    ListNode * fast = head;
+    while(fast && fast->next->next){
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    return slow;
+}
