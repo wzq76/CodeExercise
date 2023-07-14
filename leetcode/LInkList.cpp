@@ -237,7 +237,7 @@ ListNode *removeElements(ListNode *head, int val) {
 }
 
 /**
- * 206 反转链表
+ * 206. 反转链表
  */
 //摘下头节点进行头部插入
 ListNode *reverseList(ListNode *head) {
