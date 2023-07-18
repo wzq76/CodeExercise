@@ -26,7 +26,28 @@ struct ListNode {
  * @return
  */
 ListNode *addTwoNumbers(ListNode *l1, ListNode *l2) {
-
+    ListNode * head = new ListNode(-1),*p=head;
+    int sum = 0;        //两位相加求和
+    bool flag = false;  //进位标志
+    while(l1 || l2){
+        sum = 0;
+        if (l1) {
+            sum+=l1->val;
+            l1 = l1->next;
+        }
+        if (l2) {
+            sum+=l2->val;
+            l2=l2->next;
+        }
+        if (flag) sum++;    //如果上次运算有进位
+        p->next = new ListNode(sum%10);//取一位
+        p = p->next;
+        flag = sum>9? true: false;
+    }
+    if (flag) {             //如果最后一次运算有进位，新开一位
+        p->next=new ListNode(1);
+    }
+    return head->next;
 }
 
 
