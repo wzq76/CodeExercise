@@ -4,17 +4,15 @@
 #include <stack>
 #include <algorithm>
 #include <queue>
-
 using namespace std;
-
 struct TreeNode {
     int val;
     TreeNode *left;
     TreeNode *right;
 
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode() : val(0), left(nullptrptr), right(nullptrptr) {}
 
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptrptr), right(nullptrptr) {}
 
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
@@ -29,8 +27,8 @@ vector<int> inorderTraversal(TreeNode *root) {
     stack<TreeNode *> st;
     TreeNode *cur = root; //指针的遍历访问节点，栈则用来处理节点上的元素
 
-    while (cur != NULL || !st.empty()) {
-        if (cur != NULL) {
+    while (cur != nullptr || !st.empty()) {
+        if (cur != nullptr) {
             st.push(cur);
             cur = cur->left;  //先找最左孩子
         } else {
@@ -43,13 +41,15 @@ vector<int> inorderTraversal(TreeNode *root) {
     return result;
 }
 
+
+
 /**
  * 98.验证二叉搜索树
  */
 vector<int> vec;
 
 void traversal(TreeNode *root) {
-    if (root == NULL) return;
+    if (root == nullptr) return;
     traversal(root->left);
     vec.push_back(root->val);
     traversal(root->right);
@@ -74,9 +74,9 @@ bool isValidBST(TreeNode *root) {
 //递归法
 bool compare(TreeNode *left, TreeNode *right) {
     //中止条件：左右有空节点的情况
-    if (left == NULL && right != NULL) return false;
-    else if (left != NULL && right == NULL) return false;
-    else if (left == NULL && right == NULL) return true;
+    if (left == nullptr && right != nullptr) return false;
+    else if (left != nullptr && right == nullptr) return false;
+    else if (left == nullptr && right == nullptr) return true;
         //中止条件：左右没有空节点的情况:左右不同值就退出 左右相同值就递归
     else if (left->val != right->val)return false;
 
@@ -87,7 +87,7 @@ bool compare(TreeNode *left, TreeNode *right) {
 }
 
 bool isSymmetric(TreeNode *root) {
-    if (root == NULL) return true;
+    if (root == nullptr) return true;
     return compare(root->left, root->right);
 }
 
@@ -99,7 +99,7 @@ bool isSymmetric(TreeNode *root) {
  */
 vector<vector<int>> levelOrder(TreeNode *root) {
     queue<TreeNode *> que;
-    if (root != NULL) que.push(root);
+    if (root != nullptr) que.push(root);
     vector<vector<int>> result;
 
     while (!que.empty()) {
@@ -124,7 +124,7 @@ vector<vector<int>> levelOrder(TreeNode *root) {
  * @param depth
  */
 void order(TreeNode *cur, vector<vector<int>> &result, int depth) {
-    if (cur == nullptr) return;
+    if (cur == nullptrptr) return;
     if (result.size() == depth) result.push_back(vector<int>());
     result[depth].push_back(cur->val);
     order(cur->left, result, depth + 1);
@@ -180,8 +180,8 @@ TreeNode* sortedArrayToBST(vector<int>& nums) {
  */
 bool traversal(TreeNode *cur, int count) {
     // 如果是叶子，并且计数为0
-    if (cur->left == nullptr && cur->right == nullptr && count == 0)return true;
-    if (cur->left == nullptr && cur->right == nullptr && count != 0) return false;
+    if (cur->left == nullptrptr && cur->right == nullptrptr && count == 0)return true;
+    if (cur->left == nullptrptr && cur->right == nullptrptr && count != 0) return false;
 
     if (cur->left) { //左孩子存在向左递归
         count -= cur->left->val;
@@ -210,13 +210,13 @@ vector<int> preorderTraversal(TreeNode *root) {
     stack<TreeNode *> st;
     vector<int> result;
 
-    if (root == NULL) return result;
+    if (root == nullptrptr) return result;
     st.push(root);       //处理顺序和访问顺序一致
     while (!st.empty()) {
         TreeNode *node = st.top(); //处理栈顶
         st.pop();
         result.push_back(node->val);
-        if (node->right) st.push(node->right);
+        if (node->right) st.push(node->right);//先进栈的后出
         if (node->left) st.push(node->left);
     }
     return result;
@@ -230,7 +230,7 @@ vector<int> preorderTraversal(TreeNode *root) {
 vector<int> postorderTraversal(TreeNode *root) {
     stack<TreeNode *> st;
     vector<int> result;
-    if (root == NULL) return result;
+    if (root == nullptr) return result;
     st.push(root);
     while (!st.empty()) {
         TreeNode *node = st.top();
@@ -275,7 +275,7 @@ vector<int> rightSideView(TreeNode *root) {
 
 // 递归法
 TreeNode *invertTree(TreeNode *root) {
-    if (root == NULL) return root;
+    if (root == nullptr) return root;
     swap(root->left, root->right);
     invertTree(root->left);
     invertTree(root->right);

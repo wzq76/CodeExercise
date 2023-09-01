@@ -28,19 +28,31 @@ int majorityElement(vector<int> &nums) {
     return count * 2 > len ? candidate : -1;
 }
 
-int main() {
-//    vector<int> nums = {2, 0, 2, 1, 1, 0};
-//    sortColors(nums);
+//int main() {
+////    vector<int> nums = {2, 0, 2, 1, 1, 0};
+////    sortColors(nums);
+////
+////    for(auto const& value : nums)
+////        cout << value << "; ";
+//    vector<string> strs = {"flower", "flow", "flight"};
+////    cout<< strs[0][0];
+//    cout << longestCommonPrefix(strs);
 //
-//    for(auto const& value : nums)
-//        cout << value << "; ";
-    vector<string> strs = {"flower", "flow", "flight"};
-//    cout<< strs[0][0];
-    cout << longestCommonPrefix(strs);
+//    string str = "1234 5678";
+//    for (string::reverse_iterator itr = str.rbegin(); itr != str.rend(); ++itr)
+//        cout << *itr;
+//
+//
+//};
+#include <iostream>
 
-    string str = "1234 5678";
-    for (string::reverse_iterator itr = str.rbegin(); itr != str.rend(); ++itr)
-        cout << *itr;
+using namespace std;
 
-
-};
+int main(void) {
+    int a, b = 5;
+    (a = b) = 10;
+    cout << "a = " << a << " b = " << b << endl;
+    (a < b ? a : b) = 200;
+    cout << "a = " << a << " b = " << b << endl;
+    return 0;
+}
