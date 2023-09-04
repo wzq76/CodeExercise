@@ -25,6 +25,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[103]二叉树的锯齿形层序遍历.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/doc/content/[103]二叉树的锯齿形层序遍历.md" />
+              <option name="frontendQuestionId" value="leetcode.cn103" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[103]二叉树的锯齿形层序遍历.cpp" />
+              <option name="titleSlug" value="binary-tree-zigzag-level-order-traversal" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[1047]删除字符串中的所有相邻重复项.cpp">
           <value>
             <LeetcodeEditor>
@@ -33,6 +44,17 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[1047]删除字符串中的所有相邻重复项.cpp" />
               <option name="titleSlug" value="remove-all-adjacent-duplicates-in-string" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[104]二叉树的最大深度.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/doc/content/[104]二叉树的最大深度.md" />
+              <option name="frontendQuestionId" value="leetcode.cn104" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[104]二叉树的最大深度.cpp" />
+              <option name="titleSlug" value="maximum-depth-of-binary-tree" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -528,6 +550,17 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[3]无重复字符的最长子串.cpp" />
               <option name="titleSlug" value="longest-substring-without-repeating-characters" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[404]左叶子之和.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/doc/content/[404]左叶子之和.md" />
+              <option name="frontendQuestionId" value="leetcode.cn404" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[404]左叶子之和.cpp" />
+              <option name="titleSlug" value="sum-of-left-leaves" />
             </LeetcodeEditor>
           </value>
         </entry>

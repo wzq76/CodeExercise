@@ -16,7 +16,6 @@ struct TreeNode {
 
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
-
 /**
  * 94 二叉树中序遍历
  * @param root
@@ -138,6 +137,41 @@ vector<vector<int>> levelOrder2(TreeNode *root) {
     return result;
 }
 
+/**
+ * 103. 二叉树的锯齿形层序遍历
+ * @param root
+ * @return
+ */
+vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+    queue<TreeNode *> queue;
+    vector<vector<int>> res;
+    if(root) queue.push(root);
+    int flag = 1;
+    while (!queue.empty()){
+        int size = queue.size();
+        vector<int> v;
+        for (int i = 0; i < size; ++i) {
+            TreeNode * node = queue.front();
+            v.push_back(node->val);
+            if (node->left) queue.push(node->left);
+            if (node->right) queue.push(node->right);
+            queue.pop();
+        }
+        if (flag%2==0) reverse(v.begin(),v.end());
+        flag++;
+        res.push_back(v);//偶数层反转
+    }
+    return res;
+}
+
+/***
+ * 104. 二叉树的最大深度
+ * @param root
+ * @return
+ */
+int maxDepth(TreeNode* root) {
+
+}
 
 /**
  * 107 自底向上层序遍历
@@ -303,6 +337,14 @@ TreeNode *invertTree2(TreeNode *root) {
  * @return
  */
 int kthSmallest(TreeNode* root, int k) {
+
+}
+/***
+ * 404. 左叶子之和
+ * @param root
+ * @return
+ */
+int sumOfLeftLeaves(TreeNode* root) {
 
 }
 /**
