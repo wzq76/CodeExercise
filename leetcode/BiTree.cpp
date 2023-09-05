@@ -4,7 +4,9 @@
 #include <stack>
 #include <algorithm>
 #include <queue>
+
 using namespace std;
+
 struct TreeNode {
     int val;
     TreeNode *left;
@@ -16,6 +18,7 @@ struct TreeNode {
 
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
+
 /**
  * 94 二叉树中序遍历
  * @param root
@@ -41,7 +44,6 @@ vector<int> inorderTraversal(TreeNode *root) {
 }
 
 
-
 /**
  * 98.验证二叉搜索树
  */
@@ -62,7 +64,15 @@ bool isValidBST(TreeNode *root) {
     }
     return true;
 }
+/**
+ * 100. 相同的树
+ * @param p
+ * @param q
+ * @return
+ */
+bool isSameTree(TreeNode* p, TreeNode* q) {
 
+}
 
 /**
  * 101 对称二叉树
@@ -142,22 +152,22 @@ vector<vector<int>> levelOrder2(TreeNode *root) {
  * @param root
  * @return
  */
-vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+vector<vector<int>> zigzagLevelOrder(TreeNode *root) {
     queue<TreeNode *> queue;
     vector<vector<int>> res;
-    if(root) queue.push(root);
+    if (root) queue.push(root);
     int flag = 1;
-    while (!queue.empty()){
+    while (!queue.empty()) {
         int size = queue.size();
         vector<int> v;
         for (int i = 0; i < size; ++i) {
-            TreeNode * node = queue.front();
+            TreeNode *node = queue.front();
             v.push_back(node->val);
             if (node->left) queue.push(node->left);
             if (node->right) queue.push(node->right);
             queue.pop();
         }
-        if (flag%2==0) reverse(v.begin(),v.end());
+        if (flag % 2 == 0) reverse(v.begin(), v.end());
         flag++;
         res.push_back(v);//偶数层反转
     }
@@ -169,9 +179,37 @@ vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
  * @param root
  * @return
  */
-int maxDepth(TreeNode* root) {
-
+int getdepth(TreeNode *node) {
+    if (node == nullptr) return 0;
+    int leftdepth = getdepth(node->left);
+    int rightdepth = getdepth(node->right);
+    int depth = 1 + max(leftdepth, rightdepth);
+    return depth;
 }
+//递归
+int maxDepth2(TreeNode *root) {
+    if (root == nullptr) return 0;
+    return 1 + max(getdepth(root->right), getdepth(root->left));
+}
+
+int maxDepth(TreeNode *root) {
+    if(root== nullptr) return 0;
+    int depth=0;
+    queue<TreeNode *>queue;
+    queue.push(root);
+    while(!queue.empty()){
+        depth +=1;
+        int size = queue.size();
+        for (int i = 0; i < size; ++i) {
+            TreeNode * node = queue.front();
+            queue.pop();
+            if (node->left) queue.push(node->left);
+            if(node->right) queue.push(node->right);
+        }
+    }
+    return depth;
+}
+
 
 /**
  * 107 自底向上层序遍历
@@ -198,12 +236,37 @@ vector<vector<int>> levelOrderBottom(TreeNode *root) {
     reverse(result.begin(), result.end());
     return result;
 }
+
 /**
  * 108. 将有序数组转换为二叉搜索树
  * @param nums
  * @return
  */
-TreeNode* sortedArrayToBST(vector<int>& nums) {
+TreeNode *sortedArrayToBST(vector<int> &nums) {
+
+}
+/**
+ * 109. 有序链表转换二叉搜索树
+ * @param head
+ * @return
+ */
+TreeNode* sortedListToBST(ListNode* head) {
+
+}
+/**
+ * 110. 平衡二叉树
+ * @param root
+ * @return
+ */
+bool isBalanced(TreeNode* root) {
+
+}
+/***
+ * 111. 二叉树的最小深度
+ * @param root
+ * @return
+ */
+int minDepth(TreeNode* root) {
 
 }
 /**
@@ -330,23 +393,26 @@ TreeNode *invertTree2(TreeNode *root) {
     }
     return root;
 }
+
 /**
  * 230. 二叉搜索树中第K小的元素
  * @param root
  * @param k
  * @return
  */
-int kthSmallest(TreeNode* root, int k) {
+int kthSmallest(TreeNode *root, int k) {
 
 }
+
 /***
  * 404. 左叶子之和
  * @param root
  * @return
  */
-int sumOfLeftLeaves(TreeNode* root) {
+int sumOfLeftLeaves(TreeNode *root) {
 
 }
+
 /**
  * 637 二叉树层平均值
  * @param root
@@ -376,12 +442,13 @@ vector<double> averageOfLevels(TreeNode *root) {
     return result;
 
 }
+
 /**
  * 958. 二叉树的完全性检验
  * @param root
  * @return
  */
-bool isCompleteTree(TreeNode* root) {
+bool isCompleteTree(TreeNode *root) {
 
 }
 
