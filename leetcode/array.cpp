@@ -181,6 +181,16 @@ void rotate(vector<int>& nums, int k) {
 }
 
 /**
+ * 209.长度最小的子数组
+ * @param target
+ * @param nums
+ * @return
+ */
+int minSubArrayLen(int target, vector<int>& nums) {
+
+}
+
+/**
  * 977
  * @param nums
  * @return

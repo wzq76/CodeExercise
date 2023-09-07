@@ -19,6 +19,22 @@ struct TreeNode {
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
+class Node {
+public:
+    int val;
+    vector<Node*> children;
+
+    Node() {}
+
+    Node(int _val) {
+        val = _val;
+    }
+
+    Node(int _val, vector<Node*> _children) {
+        val = _val;
+        children = _children;
+    }
+};
 /**
  * 94 二叉树中序遍历
  * @param root
@@ -34,7 +50,7 @@ vector<int> inorderTraversal(TreeNode *root) {
             st.push(cur);
             cur = cur->left;  //先找最左孩子
         } else {
-            cur = st.top(); //指针回溯栈顶元素
+            cur = st.top(); //无左，指针回溯栈顶元素
             st.pop();
             result.push_back(cur->val);
             cur = cur->right;
@@ -44,10 +60,13 @@ vector<int> inorderTraversal(TreeNode *root) {
 }
 
 
-/**
- * 98.验证二叉搜索树
- */
+
 vector<int> vec;
+/***
+ * 98.验证二叉搜索树
+ * @param root
+ * 中序遍历下，输出的二叉搜索树节点的数值是有序序列。
+ */
 
 void traversal(TreeNode *root) {
     if (root == nullptr) return;
@@ -64,6 +83,7 @@ bool isValidBST(TreeNode *root) {
     }
     return true;
 }
+
 /**
  * 100. 相同的树
  * @param p
@@ -71,7 +91,21 @@ bool isValidBST(TreeNode *root) {
  * @return
  */
 bool isSameTree(TreeNode* p, TreeNode* q) {
+    stack<TreeNode*> stack;
+    stack.push(p);
+    stack.push(q);
 
+    while (!stack.empty()){
+        TreeNode* rightnode = stack.top();stack.pop();
+        TreeNode* leftnode = stack.top();stack.pop();
+        if (!leftnode && !rightnode) continue;  //同时为空
+        if ((!rightnode || !leftnode || (rightnode->val != leftnode->val))) return false;
+        stack.push(leftnode->left); //比较左节点
+        stack.push(rightnode->left);
+        stack.push(leftnode->right);//比较右
+        stack.push(rightnode->right);
+    }
+    return true;
 }
 
 /**
@@ -100,6 +134,23 @@ bool isSymmetric(TreeNode *root) {
     return compare(root->left, root->right);
 }
 
+bool isSameTree1(TreeNode* p, TreeNode* q) {
+    stack<TreeNode*> stack;
+    stack.push(p);
+    stack.push(q);
+
+    while (!stack.empty()){
+        TreeNode* rightnode = stack.top();stack.pop();
+        TreeNode* leftnode = stack.top();stack.pop();
+        if (!leftnode && !rightnode) continue;  //同时为空
+        if ((!rightnode || !leftnode || (rightnode->val != leftnode->val))) return false;
+        stack.push(leftnode->left);
+        stack.push(rightnode->right);
+        stack.push(leftnode->right);
+        stack.push(rightnode->left);
+    }
+    return true;
+}
 
 /**
  * 102 层序遍历
@@ -191,7 +242,7 @@ int maxDepth2(TreeNode *root) {
     if (root == nullptr) return 0;
     return 1 + max(getdepth(root->right), getdepth(root->left));
 }
-
+//迭代，层序遍历层数
 int maxDepth(TreeNode *root) {
     if(root== nullptr) return 0;
     int depth=0;
@@ -209,7 +260,15 @@ int maxDepth(TreeNode *root) {
     }
     return depth;
 }
+/***
+ * 106.从中序与后序遍历序列构造二叉树
+ * @param inorder
+ * @param postorder
+ * @return
+ */
+TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
 
+}
 
 /**
  * 107 自底向上层序遍历
@@ -299,6 +358,23 @@ bool hasPathSum(TreeNode *root, int targetSum) {
 }
 
 /**
+ * 116.填充每个节点的下一个右侧节点指针
+ * @param root
+ * @return
+ */
+Node* connect(Node* root) {
+
+}
+
+/**
+ * 117.填充每个节点的下一个右侧节点指针II
+ * @param root
+ * @return
+ */
+Node* connect(Node* root) {
+
+}
+/**
  * 144 二叉树前序遍历
  * @param root
  * @return vector
@@ -364,6 +440,15 @@ vector<int> rightSideView(TreeNode *root) {
     }
     return result;
 }
+
+/***
+ * 222.完全二叉树的节点个数
+ * @param root
+ * @return
+ */
+int countNodes(TreeNode* root) {
+
+}
 /**
  * 226 反转二叉树
  * @param root
@@ -386,10 +471,10 @@ TreeNode *invertTree2(TreeNode *root) {
 
     while (!st.empty()) {
         TreeNode *node = st.top();
-        st.pop();
-        swap(node->left, node->right);
-        if (node->right) st.push(node->right);
-        if (node->left) st.push(node->left);
+        st.pop();                           //立即出栈
+        swap(node->left, node->right);//中
+        if (node->right) st.push(node->right);//已经左右交换的左
+        if (node->left) st.push(node->left);//右
     }
     return root;
 }
@@ -401,15 +486,157 @@ TreeNode *invertTree2(TreeNode *root) {
  * @return
  */
 int kthSmallest(TreeNode *root, int k) {
+    stack<TreeNode* >stack;
+    TreeNode *cur = root;
+    vector<int> res;
+    int res_k=0;
+    while (cur != nullptr || !stack.empty()){   //中序遍历取第K个
+        if (cur != nullptr) {
+            stack.push(cur);
+            cur = cur->left;
+        }else{
+            cur = stack.top();
+            stack.pop();
+            res.push_back(cur->val);
+            cur = cur->right;
+        }
+    }
+    if(res.size()>0) res_k = res[k-1];
+    return res_k;
+}
+
+/**
+ * 235. 二叉搜索树的最近公共祖先
+ * @param root
+ * @param p
+ * @param q
+ * @return
+ */
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
 
 }
 
+/**
+ * 236. 二叉树的最近公共祖先
+ * @param root
+ * @param p
+ * @param q
+ * @return
+ */
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+
+}
+
+/***
+ * 257. 二叉树的所有路径
+ * @param root
+ * @return
+ */
+vector<string> binaryTreePaths(TreeNode* root) {
+
+}
 /***
  * 404. 左叶子之和
  * @param root
  * @return
  */
 int sumOfLeftLeaves(TreeNode *root) {
+
+}
+
+/***
+ * 429.N叉树的层序遍历
+ * @param root
+ * @return
+ */
+vector<vector<int>> levelOrder(Node* root) {
+
+}
+
+/**
+ * 450.删除二叉搜索树中的节点
+ * @param root
+ * @param key
+ * @return
+ */
+TreeNode* deleteNode(TreeNode* root, int key) {
+
+}
+
+/**
+ * 501.二叉搜索树中的众数
+ * @param root
+ * @return
+ */
+vector<int> findMode(TreeNode* root) {
+
+}
+
+/***
+ * 513.找树左下角的值
+ * @param root
+ * @return
+ */
+int findBottomLeftValue(TreeNode* root) {
+
+}
+/**
+ * 515.在每个树行中找最大值
+ * @param root
+ * @return
+ */
+vector<int> largestValues(TreeNode* root) {
+
+}
+
+/**
+ * 530.二叉搜索树的最小绝对差
+ * @param root
+ * @return
+ */
+int getMinimumDifference(TreeNode* root) {
+
+}
+
+/**
+ * 538.把二叉搜索树转换为累加树
+ * @param root
+ * @return
+ */
+TreeNode* convertBST(TreeNode* root) {
+
+}
+
+/***
+ * 559.n叉树的最大深度
+ * @param root
+ * @return
+ */
+int maxDepth(Node* root) {
+    queue<Node*> queue;
+    if(root != nullptr) queue.push(root);
+    int depth = 0;
+    while (!queue.empty()){
+        depth += 1;
+        int size = queue.size();
+        for (int i = 0; i < size; ++i) {
+            Node * node = queue.front();
+            queue.pop();
+            for (int j = 0; j < node->children.size(); ++j) {
+                queue.push(node->children[j]);
+            }
+        }
+    }
+    return depth;
+}
+
+/**
+ * 617.合并二叉树
+ * @param root1
+ * @param root2
+ * @return
+ */
+TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {
 
 }
 
@@ -440,6 +667,44 @@ vector<double> averageOfLevels(TreeNode *root) {
         }
     }
     return result;
+}
+/**
+ * 654.最大二叉树
+ * @param nums
+ * @return
+ */
+TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
+
+}
+
+/**
+ * 669. 修剪二叉搜索树
+ * @param root
+ * @param low
+ * @param high
+ * @return
+ */
+TreeNode* trimBST(TreeNode* root, int low, int high) {
+
+}
+
+/**
+ * 700.二叉搜索树中的搜索
+ * @param root
+ * @param val
+ * @return
+ */
+TreeNode* searchBST(TreeNode* root, int val) {
+
+}
+
+/**
+ * 701.二叉搜索树中的插入操作
+ * @param root
+ * @param val
+ * @return
+ */
+TreeNode* insertIntoBST(TreeNode* root, int val) {
 
 }
 
