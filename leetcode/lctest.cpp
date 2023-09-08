@@ -6,7 +6,7 @@
 #include "array.cpp"
 #include <string>
 #include "DivideConquer.cpp"
-#include "BiTree.cpp"
+//#include "BiTree.cpp"
 
 using namespace std;
 
@@ -56,13 +56,20 @@ int main(void) {
 //    (a < b ? a : b) = 200;
 //    cout << "a = " << a << " b = " << b << endl;
 //    return 0;
-    TreeNode * p2 = new TreeNode(2,NULL, NULL);
-    TreeNode * p3 = new TreeNode(3,NULL, NULL);
-    TreeNode * p1 = new TreeNode(1, p2,p3);
+//    TreeNode * p2 = new TreeNode(2,NULL, NULL);
+//    TreeNode * p3 = new TreeNode(3,NULL, NULL);
+//    TreeNode * p1 = new TreeNode(1, p2,p3);
+//
+//    TreeNode * q2 = new TreeNode(2, NULL, NULL);
+//    TreeNode * q3 = new TreeNode(3,NULL, NULL);
+//    TreeNode * q1 = new TreeNode(1, q2,q3);
+//
+//    cout<< isSameTree1(p1,q1);
+    vector<int> res{1, 2, 3, 4, 5};
+    vector<int> res1(res.begin(), res.end());
+    for (const auto &item: res1) {
+        cout<<item;
+    }
+//    cout << *(res.end()-1);
 
-    TreeNode * q2 = new TreeNode(2, NULL, NULL);
-    TreeNode * q3 = new TreeNode(3,NULL, NULL);
-    TreeNode * q1 = new TreeNode(1, q2,q3);
-
-    cout<< isSameTree1(p1,q1);
 }

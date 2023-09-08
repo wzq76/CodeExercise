@@ -12,9 +12,9 @@ struct TreeNode {
     TreeNode *left;
     TreeNode *right;
 
-    TreeNode() : val(0), left(nullptrptr), right(nullptrptr) {}
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
 
-    TreeNode(int x) : val(x), left(nullptrptr), right(nullptrptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
@@ -22,7 +22,7 @@ struct TreeNode {
 class Node {
 public:
     int val;
-    vector<Node*> children;
+    vector<Node *> children;
 
     Node() {}
 
@@ -30,11 +30,12 @@ public:
         val = _val;
     }
 
-    Node(int _val, vector<Node*> _children) {
+    Node(int _val, vector<Node *> _children) {
         val = _val;
         children = _children;
     }
 };
+
 /**
  * 94 二叉树中序遍历
  * @param root
@@ -60,8 +61,8 @@ vector<int> inorderTraversal(TreeNode *root) {
 }
 
 
-
 vector<int> vec;
+
 /***
  * 98.验证二叉搜索树
  * @param root
@@ -90,14 +91,16 @@ bool isValidBST(TreeNode *root) {
  * @param q
  * @return
  */
-bool isSameTree(TreeNode* p, TreeNode* q) {
-    stack<TreeNode*> stack;
+bool isSameTree(TreeNode *p, TreeNode *q) {
+    stack<TreeNode *> stack;
     stack.push(p);
     stack.push(q);
 
-    while (!stack.empty()){
-        TreeNode* rightnode = stack.top();stack.pop();
-        TreeNode* leftnode = stack.top();stack.pop();
+    while (!stack.empty()) {
+        TreeNode *rightnode = stack.top();
+        stack.pop();
+        TreeNode *leftnode = stack.top();
+        stack.pop();
         if (!leftnode && !rightnode) continue;  //同时为空
         if ((!rightnode || !leftnode || (rightnode->val != leftnode->val))) return false;
         stack.push(leftnode->left); //比较左节点
@@ -134,14 +137,16 @@ bool isSymmetric(TreeNode *root) {
     return compare(root->left, root->right);
 }
 
-bool isSameTree1(TreeNode* p, TreeNode* q) {
-    stack<TreeNode*> stack;
+bool isSameTree1(TreeNode *p, TreeNode *q) {
+    stack<TreeNode *> stack;
     stack.push(p);
     stack.push(q);
 
-    while (!stack.empty()){
-        TreeNode* rightnode = stack.top();stack.pop();
-        TreeNode* leftnode = stack.top();stack.pop();
+    while (!stack.empty()) {
+        TreeNode *rightnode = stack.top();
+        stack.pop();
+        TreeNode *leftnode = stack.top();
+        stack.pop();
         if (!leftnode && !rightnode) continue;  //同时为空
         if ((!rightnode || !leftnode || (rightnode->val != leftnode->val))) return false;
         stack.push(leftnode->left);
@@ -175,7 +180,6 @@ vector<vector<int>> levelOrder(TreeNode *root) {
         result.push_back(vec);
     }
     return result;
-}
 
 /**
  * 递归法
@@ -184,7 +188,7 @@ vector<vector<int>> levelOrder(TreeNode *root) {
  * @param depth
  */
 void order(TreeNode *cur, vector<vector<int>> &result, int depth) {
-    if (cur == nullptrptr) return;
+    if (cur == nullptr) return;
     if (result.size() == depth) result.push_back(vector<int>());
     result[depth].push_back(cur->val);
     order(cur->left, result, depth + 1);
@@ -237,43 +241,76 @@ int getdepth(TreeNode *node) {
     int depth = 1 + max(leftdepth, rightdepth);
     return depth;
 }
+
 //递归
 int maxDepth2(TreeNode *root) {
     if (root == nullptr) return 0;
     return 1 + max(getdepth(root->right), getdepth(root->left));
 }
+
 //迭代，层序遍历层数
 int maxDepth(TreeNode *root) {
-    if(root== nullptr) return 0;
-    int depth=0;
-    queue<TreeNode *>queue;
+    if (root == nullptr) return 0;
+    int depth = 0;
+    queue<TreeNode *> queue;
     queue.push(root);
-    while(!queue.empty()){
-        depth +=1;
+    while (!queue.empty()) {
+        depth += 1;
         int size = queue.size();
         for (int i = 0; i < size; ++i) {
-            TreeNode * node = queue.front();
+            TreeNode *node = queue.front();
             queue.pop();
             if (node->left) queue.push(node->left);
-            if(node->right) queue.push(node->right);
+            if (node->right) queue.push(node->right);
         }
     }
     return depth;
 }
+
 /***
  * 106.从中序与后序遍历序列构造二叉树
  * @param inorder
  * @param postorder
  * @return
  */
-TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+TreeNode *traversal(vector<int> &inorder, vector<int> &postorder) {
+    //1切割后的后序为空则子树为空
+    if (postorder.size() == 0) return NULL;
+    //2后序的最后一个是根节点的值
+    int rootValue = postorder[postorder.size() - 1];
+    TreeNode *root = new TreeNode(rootValue);
+    //3切割后的后序数组可能为叶子节点
+    if (postorder.size() == 1) return root;
+    //4从中序找根节点下标
+    int delimiterIndex;
+    for (delimiterIndex = 0; delimiterIndex < inorder.size(); delimiterIndex++) {
+        if (inorder[delimiterIndex] == rootValue) break;
+    }
+    //5切割中序得到中序左数组和中序右数组 [0,delimiterIndex) 和 [delimiterIndex+1,end)
+    vector<int> leftInorder(inorder.begin(), inorder.begin() + delimiterIndex);
+    vector<int> rightInoder(inorder.begin() + delimiterIndex+1, inorder.end());
 
+    //6切割后序得到后序左数组和后序右数组
+    //postoeder 舍弃末尾根节点
+    postorder.resize(postorder.size()-1);
+    vector<int> leftPostorder(postorder.begin(), postorder.begin() + leftInorder.size());
+    vector<int> righPostorder(postorder.begin() + leftInorder.size(), postorder.end());
+    root->left = traversal(leftInorder, leftPostorder);
+    root->right = traversal(rightInoder, righPostorder);
+
+    return root;
 }
 
+TreeNode *buildTree(vector<int> &inorder, vector<int> &postorder) {
+    if (inorder.size() == 0 || postorder.size() == 0) return NULL;
+    return traversal(inorder, postorder);
+}
 /**
  * 107 自底向上层序遍历
  * @param root
+ * [[2],[3,4]]
  * @return
+ * [[3,4],[2]]
  */
 vector<vector<int>> levelOrderBottom(TreeNode *root) {
     queue<TreeNode *> que;
@@ -290,9 +327,9 @@ vector<vector<int>> levelOrderBottom(TreeNode *root) {
             if (node->left) que.push(node->left);
             if (node->right) que.push(node->right);
         }
-        result.push_back(vec);
+        result.push_back(vec);K
     }
-    reverse(result.begin(), result.end());
+    reverse(result.begin(), result.end());//正常的层序遍历后直接反转
     return result;
 }
 
@@ -304,30 +341,34 @@ vector<vector<int>> levelOrderBottom(TreeNode *root) {
 TreeNode *sortedArrayToBST(vector<int> &nums) {
 
 }
+
 /**
  * 109. 有序链表转换二叉搜索树
  * @param head
  * @return
  */
-TreeNode* sortedListToBST(ListNode* head) {
+TreeNode *sortedListToBST(ListNode *head) {
 
 }
+
 /**
  * 110. 平衡二叉树
  * @param root
  * @return
  */
-bool isBalanced(TreeNode* root) {
+bool isBalanced(TreeNode *root) {
 
 }
+
 /***
  * 111. 二叉树的最小深度
  * @param root
  * @return
  */
-int minDepth(TreeNode* root) {
+int minDepth(TreeNode *root) {
 
 }
+
 /**
  * 112. 路径总和
  * @param cur
@@ -336,8 +377,8 @@ int minDepth(TreeNode* root) {
  */
 bool traversal(TreeNode *cur, int count) {
     // 如果是叶子，并且计数为0
-    if (cur->left == nullptrptr && cur->right == nullptrptr && count == 0)return true;
-    if (cur->left == nullptrptr && cur->right == nullptrptr && count != 0) return false;
+    if (cur->left == nullptr && cur->right == nullptr && count == 0)return true;
+    if (cur->left == nullptr && cur->right == nullptr && count != 0) return false;
 
     if (cur->left) { //左孩子存在向左递归
         count -= cur->left->val;
@@ -362,7 +403,7 @@ bool hasPathSum(TreeNode *root, int targetSum) {
  * @param root
  * @return
  */
-Node* connect(Node* root) {
+Node *connect(Node *root) {
 
 }
 
@@ -371,9 +412,10 @@ Node* connect(Node* root) {
  * @param root
  * @return
  */
-Node* connect(Node* root) {
+Node *connect(Node *root) {
 
 }
+
 /**
  * 144 二叉树前序遍历
  * @param root
@@ -383,7 +425,7 @@ vector<int> preorderTraversal(TreeNode *root) {
     stack<TreeNode *> st;
     vector<int> result;
 
-    if (root == nullptrptr) return result;
+    if (root == nullptr) return result;
     st.push(root);       //处理顺序和访问顺序一致
     while (!st.empty()) {
         TreeNode *node = st.top(); //处理栈顶
@@ -446,7 +488,7 @@ vector<int> rightSideView(TreeNode *root) {
  * @param root
  * @return
  */
-int countNodes(TreeNode* root) {
+int countNodes(TreeNode *root) {
 
 }
 /**
@@ -486,22 +528,22 @@ TreeNode *invertTree2(TreeNode *root) {
  * @return
  */
 int kthSmallest(TreeNode *root, int k) {
-    stack<TreeNode* >stack;
+    stack<TreeNode *> stack;
     TreeNode *cur = root;
     vector<int> res;
-    int res_k=0;
-    while (cur != nullptr || !stack.empty()){   //中序遍历取第K个
+    int res_k = 0;
+    while (cur != nullptr || !stack.empty()) {   //中序遍历取第K个
         if (cur != nullptr) {
             stack.push(cur);
             cur = cur->left;
-        }else{
+        } else {
             cur = stack.top();
             stack.pop();
             res.push_back(cur->val);
             cur = cur->right;
         }
     }
-    if(res.size()>0) res_k = res[k-1];
+    if (res.size() > 0) res_k = res[k - 1];
     return res_k;
 }
 
@@ -512,7 +554,7 @@ int kthSmallest(TreeNode *root, int k) {
  * @param q
  * @return
  */
-TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q) {
 
 }
 
@@ -523,7 +565,7 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
  * @param q
  * @return
  */
-TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q) {
 
 }
 
@@ -532,9 +574,10 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
  * @param root
  * @return
  */
-vector<string> binaryTreePaths(TreeNode* root) {
+vector<string> binaryTreePaths(TreeNode *root) {
 
 }
+
 /***
  * 404. 左叶子之和
  * @param root
@@ -549,7 +592,7 @@ int sumOfLeftLeaves(TreeNode *root) {
  * @param root
  * @return
  */
-vector<vector<int>> levelOrder(Node* root) {
+vector<vector<int>> levelOrder(Node *root) {
 
 }
 
@@ -559,7 +602,7 @@ vector<vector<int>> levelOrder(Node* root) {
  * @param key
  * @return
  */
-TreeNode* deleteNode(TreeNode* root, int key) {
+TreeNode *deleteNode(TreeNode *root, int key) {
 
 }
 
@@ -568,7 +611,7 @@ TreeNode* deleteNode(TreeNode* root, int key) {
  * @param root
  * @return
  */
-vector<int> findMode(TreeNode* root) {
+vector<int> findMode(TreeNode *root) {
 
 }
 
@@ -577,15 +620,16 @@ vector<int> findMode(TreeNode* root) {
  * @param root
  * @return
  */
-int findBottomLeftValue(TreeNode* root) {
+int findBottomLeftValue(TreeNode *root) {
 
 }
+
 /**
  * 515.在每个树行中找最大值
  * @param root
  * @return
  */
-vector<int> largestValues(TreeNode* root) {
+vector<int> largestValues(TreeNode *root) {
 
 }
 
@@ -594,7 +638,7 @@ vector<int> largestValues(TreeNode* root) {
  * @param root
  * @return
  */
-int getMinimumDifference(TreeNode* root) {
+int getMinimumDifference(TreeNode *root) {
 
 }
 
@@ -603,7 +647,7 @@ int getMinimumDifference(TreeNode* root) {
  * @param root
  * @return
  */
-TreeNode* convertBST(TreeNode* root) {
+TreeNode *convertBST(TreeNode *root) {
 
 }
 
@@ -612,15 +656,15 @@ TreeNode* convertBST(TreeNode* root) {
  * @param root
  * @return
  */
-int maxDepth(Node* root) {
-    queue<Node*> queue;
-    if(root != nullptr) queue.push(root);
+int maxDepth(Node *root) {
+    queue<Node *> queue;
+    if (root != nullptr) queue.push(root);
     int depth = 0;
-    while (!queue.empty()){
+    while (!queue.empty()) {
         depth += 1;
         int size = queue.size();
         for (int i = 0; i < size; ++i) {
-            Node * node = queue.front();
+            Node *node = queue.front();
             queue.pop();
             for (int j = 0; j < node->children.size(); ++j) {
                 queue.push(node->children[j]);
@@ -636,7 +680,7 @@ int maxDepth(Node* root) {
  * @param root2
  * @return
  */
-TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {
+TreeNode *mergeTrees(TreeNode *root1, TreeNode *root2) {
 
 }
 
@@ -668,12 +712,13 @@ vector<double> averageOfLevels(TreeNode *root) {
     }
     return result;
 }
+
 /**
  * 654.最大二叉树
  * @param nums
  * @return
  */
-TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
+TreeNode *constructMaximumBinaryTree(vector<int> &nums) {
 
 }
 
@@ -684,7 +729,7 @@ TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
  * @param high
  * @return
  */
-TreeNode* trimBST(TreeNode* root, int low, int high) {
+TreeNode *trimBST(TreeNode *root, int low, int high) {
 
 }
 
@@ -694,7 +739,7 @@ TreeNode* trimBST(TreeNode* root, int low, int high) {
  * @param val
  * @return
  */
-TreeNode* searchBST(TreeNode* root, int val) {
+TreeNode *searchBST(TreeNode *root, int val) {
 
 }
 
@@ -704,7 +749,7 @@ TreeNode* searchBST(TreeNode* root, int val) {
  * @param val
  * @return
  */
-TreeNode* insertIntoBST(TreeNode* root, int val) {
+TreeNode *insertIntoBST(TreeNode *root, int val) {
 
 }
 
