@@ -14,7 +14,7 @@ void init(SqList &l,vector<int> v,int n){
 }
 
 int main(){
-    int n;
+/*    int n;
     vector<int> v1 = {1,3,5,7,2,4,6,8};
     vector<int> v2 = {2,4,6,8};
     SqList l1;
@@ -22,7 +22,7 @@ int main(){
     InitList(l1);
     InitList(l2);
     init(l1,v1,8);
-    init(l2,v2,4);
+    init(l2,v2,4);*/
 //    PrintList(l1);
 //    PrintList(l2);
 // 1
@@ -80,10 +80,10 @@ int main(){
 /**
  * 链表
  */
-    LinkList ll1,ll2,ll3;
+   /* LinkList ll1,ll2,ll3;
     int c[] = {1,-2,2,4,-4};
     List_TailInsert(ll1,c,5);
-    PrintLinkList(ll1);
+    PrintLinkList(ll1);*/
 
 //1
 //    Del_X_1(ll1,13);
@@ -118,15 +118,34 @@ int main(){
 
 //     Search_k(ll1,3);
 
-    func1(ll1,5);
+    /*func1(ll1,5);
     PrintLinkList(ll1);
+*/
 
+   /* int a = 996;
+    int *p = &a;
+    int &r = a;
 
+    cout << sizeof(p); // 返回 int* 类型的大小
+    cout << sizeof(r); // 返回 int 类型的大小*/
 
+    int num = 3;
+    int* p = &num;			// 将变量num的地址取出来，存到指针p中
+    cout<< num << "的地址是 " << p << endl;
+    cout<< "指针p所指向的地址为"<< p << "  该地址上所的值为 " << *p << endl;
+    *p = 100;
+    printf("指针p所指向的地址为 %p , num的值为%d\n", p, num);
 
+    int val = 7, val2 = 999;
+    int &refval = val, &refval2 = val2; //引用必须初始化，使其绑定到一个变量上
+    //修改引用的值将改变其所绑定的变量的值
+    refval = -12;
+    printf("val,refval : %d,%d\n", val, refval);//-12，refval的值和val一样
 
+    //将引用b赋值给引用a将改变引用a所绑定的变量的值，
+    //引用一但初始化(绑定)，将始终绑定到同一个特定对象上，无法绑定到另一个对象上
+    refval = refval2;
+    printf("val,refval : %d,%d\n", val, refval);//999
 
-
-
-
+    cout<<"refval和val"<< &refval << &val;
 }
