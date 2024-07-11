@@ -4,8 +4,30 @@
 #include <vector>
 #include <string>
 #include <unordered_set>
+#include <unordered_map>
 
 using namespace std;
+
+
+/***
+ * 1. 两数之和
+ * @param nums
+ * @param target
+ * @return
+ */
+vector<int> twoSum(vector<int>& nums, int target) {
+    unordered_map<int,int> map;
+    for (int i = 0; i < nums.size(); ++i) {
+        int v = nums[i];
+        int k = target - v;
+        if (map.count(k)) {
+            return {i,map[k]};
+        }
+        map[v] = i;
+    }
+    return {};
+}
+
 /**
  * 41. 缺失的第一个正数
  * @param nums
